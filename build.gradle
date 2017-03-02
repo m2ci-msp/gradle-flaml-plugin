@@ -1,6 +1,7 @@
 plugins {
     id 'java-gradle-plugin'
     id 'groovy'
+    id 'com.gradle.plugin-publish' version '0.9.7'
 }
 
 group 'org.m2ci.msp'
@@ -22,4 +23,18 @@ repositories {
 dependencies {
     compile group: 'de.undercouch', name: 'gradle-download-task', version: '3.2.0'
     compile group: 'org.yaml', name: 'snakeyaml', version: '1.18'
+}
+
+pluginBundle {
+    website = 'https://github.com/psibre/gradle-flaml-plugin'
+    vcsUrl = 'https://github.com/psibre/gradle-flaml-plugin'
+    description = 'Utility plugin to manage speech data following FLAC+YAML convention'
+    tags = ['speech data', 'phonetics']
+
+    plugins {
+        flamlPlugin {
+            id = 'org.m2ci.msp.flaml'
+            displayName = 'Utility plugin to manage speech data following FLAC+YAML convention'
+        }
+    }
 }
