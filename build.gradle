@@ -26,8 +26,8 @@ dependencies {
 }
 
 pluginBundle {
-    website = 'https://github.com/psibre/gradle-flaml-plugin'
-    vcsUrl = 'https://github.com/psibre/gradle-flaml-plugin'
+    website = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
+    vcsUrl = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
     description = 'Utility plugin to manage speech data following FLAC+YAML convention'
     tags = ['speech data', 'phonetics']
 
