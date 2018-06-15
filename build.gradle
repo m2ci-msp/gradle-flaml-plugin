@@ -1,6 +1,7 @@
 plugins {
     id 'java-gradle-plugin'
     id 'groovy'
+    id 'org.m2ci.msp.praat-wrapper' version '0.5.1'
     id 'com.gradle.plugin-publish' version '0.9.10'
 }
 
@@ -22,6 +23,16 @@ dependencies {
     compile group: 'org.yaml', name: 'snakeyaml', version: '1.21'
 }
 
+task generateTestResources(type: GenerateTestResources) {
+    dependsOn praat
+    scriptFile = file('src/test/praat/generateTestResources.praat')
+    destDir = layout.buildDirectory.dir('generatedTestResources')
+}
+
+processTestResources {
+    from generateTestResources
+}
+
 pluginBundle {
     website = scmUrl
     vcsUrl = scmUrl
@@ -32,6 +43,22 @@ pluginBundle {
         flamlPlugin {
             id = pluginId
             displayName = description
+        }
+    }
+}
+
+class GenerateTestResources extends DefaultTask {
+
+    @InputFile
+    RegularFileProperty scriptFile = newInputFile()
+
+    @OutputDirectory
+    DirectoryProperty destDir = newOutputDirectory()
+
+    @TaskAction
+    void generate() {
+        project.exec {
+            commandLine project.praat.binary, '--run', scriptFile.get().asFile, destDir.get().asFile
         }
     }
 }
