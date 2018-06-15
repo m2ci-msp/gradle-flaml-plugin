@@ -21,8 +21,8 @@ repositories {
 }
 
 dependencies {
-    compile group: 'de.undercouch', name: 'gradle-download-task', version: '3.2.0'
-    compile group: 'org.yaml', name: 'snakeyaml', version: '1.18'
+    compile group: 'de.undercouch', name: 'gradle-download-task', version: '3.4.3'
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.21'
 }
 
 pluginBundle {
