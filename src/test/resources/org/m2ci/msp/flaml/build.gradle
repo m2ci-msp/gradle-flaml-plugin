@@ -1,0 +1,9 @@
+plugins {
+    id 'org.m2ci.msp.flaml'
+}
+
+task hasPlugin {
+    doLast {
+        assert pluginManager.hasPlugin('org.m2ci.msp.flaml')
+    }
+}
