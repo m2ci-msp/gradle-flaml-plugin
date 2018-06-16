@@ -3,8 +3,8 @@ form Generate test resources
 endform
 
 Create Sound from formula... sineWithNoise 1 0 1 44100 1/2 * sin(2*pi*377*x) + randomGauss(0,0.1)
-Save as WAV file... 'output_directory$'/test.wav
-Save as FLAC file... 'output_directory$'/test.flac
+Save as WAV file... 'output_directory$'/foobar.wav
+Save as FLAC file... 'output_directory$'/foobar.flac
 
 tg = To TextGrid... basenames
 
@@ -25,7 +25,7 @@ Set interval text... 2 5 b
 Set interval text... 2 6 a
 Set interval text... 2 7 r
 
-Save as text file... 'output_directory$'/test.TextGrid
+Save as text file... 'output_directory$'/foobar.TextGrid
 
 Extract part... 0.1 0.4 no
 Extract tier... 2

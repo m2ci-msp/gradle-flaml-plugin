@@ -7,3 +7,11 @@ task hasPlugin {
         assert pluginManager.hasPlugin('org.m2ci.msp.flaml')
     }
 }
+
+task hasTestResources {
+    doLast {
+        ['foobar.flac', 'foobar.wav', 'foobar.TextGrid', 'foo.lab', 'bar.lab'].each { testResource ->
+            assert file(testResource).canRead()
+        }
+    }
+}

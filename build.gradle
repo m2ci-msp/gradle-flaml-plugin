@@ -31,7 +31,9 @@ task generateTestResources(type: GenerateTestResources) {
 }
 
 processTestResources {
-    from generateTestResources
+    from generateTestResources, {
+        rename { "org/m2ci/msp/flaml/$it" }
+    }
 }
 
 test {
