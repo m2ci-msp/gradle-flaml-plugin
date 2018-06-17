@@ -13,6 +13,13 @@ task hasPlugin {
     }
 }
 
+task hasFlamlResources {
+    doLast {
+        assert yamlFile.canRead()
+        assert flacFile.canRead()
+    }
+}
+
 task hasTestResources {
     doLast {
         ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid',
