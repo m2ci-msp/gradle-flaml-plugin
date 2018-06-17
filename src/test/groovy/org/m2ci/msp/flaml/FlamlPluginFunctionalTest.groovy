@@ -38,7 +38,7 @@ class FlamlPluginFunctionalTest {
 
     @Test(dataProvider = 'tasks')
     void testTasks(String taskName) {
-        def result = gradle.withArguments(taskName).build()
+        def result = gradle.withArguments(taskName, '-s').build()
         println result.output
         assert result.task(":$taskName").outcome in [TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE]
     }

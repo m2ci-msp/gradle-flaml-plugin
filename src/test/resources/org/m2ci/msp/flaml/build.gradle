@@ -2,7 +2,7 @@ plugins {
     id 'org.m2ci.msp.flaml'
 }
 
-ext {
+flaml {
     flacFile = file('foobar.flac')
     yamlFile = file('foobar.yaml')
 }
@@ -21,8 +21,8 @@ task hasExtension {
 
 task hasFlamlResources {
     doLast {
-        assert yamlFile.canRead()
-        assert flacFile.canRead()
+        assert flaml.yamlFile.get().asFile.canRead()
+        assert flaml.flacFile.get().asFile.canRead()
     }
 }
 
