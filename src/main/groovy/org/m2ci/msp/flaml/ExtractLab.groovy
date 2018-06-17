@@ -1,11 +1,16 @@
 package org.m2ci.msp.flaml
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.*
-
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
+import org.m2ci.msp.jtgt.TextGrid
+import org.m2ci.msp.jtgt.annotation.IntervalAnnotation
+import org.m2ci.msp.jtgt.io.XWaveLabelSerializer
+import org.m2ci.msp.jtgt.tier.IntervalTier
 import org.yaml.snakeyaml.Yaml
 
 class ExtractLab extends DefaultTask {
+
     @OutputDirectory
     def destDir = project.file("$project.buildDir/lab")
 
@@ -14,14 +19,17 @@ class ExtractLab extends DefaultTask {
         def yamlFile = project.yamlFile
         new Yaml().load(yamlFile.newReader()).each { utterance ->
             if (utterance.segments) {
-                project.file("$destDir/${utterance.prompt}.lab").withWriter { lab ->
-                    lab.println "#"
-                    def end = 0f
-                    utterance.segments.each { segment ->
-                        end += segment.dur as float
-                        lab.println "\t${end.round(3)}\t125\t$segment.lab"
-                    }
+                def time = 0.0f
+                def intervals = utterance.segments.collect { segment ->
+                    def start = time
+                    time += segment.dur
+                    def end = time
+                    new IntervalAnnotation(start, end, segment.lab)
                 }
+                def tierName = 'phones'
+                def tier = new IntervalTier(tierName, intervals.first().start, intervals.last().end, intervals)
+                def textGrid = new TextGrid(null, intervals.first().start, intervals.last().end, [tier])
+                project.file("$destDir/${utterance.prompt}.lab").text = new XWaveLabelSerializer().toString(textGrid, tierName)
             }
         }
     }

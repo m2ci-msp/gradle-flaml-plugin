@@ -1,0 +1,73 @@
+plugins {
+    id 'org.m2ci.msp.flaml'
+}
+
+ext {
+    flacFile = file('foobar.flac')
+    yamlFile = file('foobar.yaml')
+}
+
+task hasPlugin {
+    doLast {
+        assert pluginManager.hasPlugin('org.m2ci.msp.flaml')
+    }
+}
+
+task hasTestResources {
+    doLast {
+        ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid',
+         'foo.wav', 'bar.wav', 'foo.lab', 'bar.lab', 'foo.txt', 'bar.txt'].each { testResource ->
+            assert file(testResource).canRead()
+        }
+    }
+}
+
+task testExtractWav {
+    dependsOn wav
+    doLast {
+        ['foo.wav', 'bar.wav'].each { name ->
+            def expected = file(name)
+            def actual = file("$buildDir/wav/$name")
+            assert actual.canRead()
+            assert actual.bytes == expected.bytes
+        }
+    }
+}
+
+task testExtractLab {
+    dependsOn lab
+    doLast {
+        ['foo.lab', 'bar.lab'].each { name ->
+            def expectedFile = file(name)
+            def expectedTextGrid = new org.m2ci.msp.jtgt.io.XWaveLabelSerializer().fromString(expectedFile.text)
+            def expected = expectedTextGrid.tiers[0].collect { tier ->
+                tier.annotations.collect { interval ->
+                    [start: interval.start.round(),
+                     end  : interval.end.round(),
+                     label: interval.text]
+                }
+            }
+            def actualFile = file("$buildDir/lab/$name")
+            def actualTextGrid = new org.m2ci.msp.jtgt.io.XWaveLabelSerializer().fromString(actualFile.text)
+            def actual = actualTextGrid.tiers[0].collect { tier ->
+                tier.annotations.collect { interval ->
+                    [start: interval.start.round(),
+                     end  : interval.end.round(),
+                     label: interval.text]
+                }
+            }
+            assert actual == expected
+        }
+    }
+}
+
+task testExtractText {
+    dependsOn text
+    doLast {
+        ['foo.txt', 'bar.txt'].each { name ->
+            def expected = file(name)
+            def actual = file("$buildDir/text/$name")
+            assert actual.text == expected.text
+        }
+    }
+}
