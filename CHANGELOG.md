@@ -4,6 +4,11 @@ Gradle FLAML Plugin
 [Unreleased]
 ------------
 
+### Added
+
+- improved documentation
+- functional tests
+
 ### Changed
 
 - upgrade Gradle to v4.8
