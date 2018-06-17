@@ -8,6 +8,7 @@ Gradle FLAML Plugin
 
 - improved documentation
 - functional tests
+- support for Java 9 and 10
 
 ### Changed
 
