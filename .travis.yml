@@ -1,0 +1,20 @@
+branches:
+  only:
+    - master
+
+language: groovy
+jdk:
+  - openjdk8
+  - oraclejdk8
+
+addons:
+  apt:
+    packages:
+    - sox
+
+script: ./gradlew check --info
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/modules-2
+    - $HOME/.gradle/wrapper
