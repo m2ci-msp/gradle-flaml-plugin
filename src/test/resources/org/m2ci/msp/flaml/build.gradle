@@ -13,6 +13,12 @@ task hasPlugin {
     }
 }
 
+task hasExtension {
+    doLast {
+        assert flaml instanceof org.m2ci.msp.flaml.FlamlExtension
+    }
+}
+
 task hasFlamlResources {
     doLast {
         assert yamlFile.canRead()
