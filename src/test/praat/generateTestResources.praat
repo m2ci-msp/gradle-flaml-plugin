@@ -41,3 +41,8 @@ select tg
 Extract part... 0.6 0.9 no
 Extract tier... 2
 Save as Xwaves label file... 'output_directory$'/bar.lab
+
+foo$ = "Foo."
+foo$ > 'output_directory$'/foo.txt
+bar$ = "Bar."
+bar$ > 'output_directory$'/bar.txt

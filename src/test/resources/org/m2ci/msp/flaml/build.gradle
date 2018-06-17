@@ -15,7 +15,8 @@ task hasPlugin {
 
 task hasTestResources {
     doLast {
-        ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid', 'foo.wav', 'bar.wav', 'foo.lab', 'bar.lab'].each { testResource ->
+        ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid',
+         'foo.wav', 'bar.wav', 'foo.lab', 'bar.lab', 'foo.txt', 'bar.txt'].each { testResource ->
             assert file(testResource).canRead()
         }
     }
