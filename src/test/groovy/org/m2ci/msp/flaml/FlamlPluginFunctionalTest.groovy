@@ -27,7 +27,8 @@ class FlamlPluginFunctionalTest {
                 ['help'],
                 ['hasPlugin'],
                 ['hasTestResources'],
-                ['testExtractWav']
+                ['testExtractWav'],
+                ['testExtractLab']
         ]
     }
 

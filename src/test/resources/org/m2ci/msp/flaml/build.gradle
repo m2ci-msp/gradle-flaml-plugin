@@ -32,3 +32,16 @@ task testExtractWav {
         }
     }
 }
+
+task testExtractLab {
+    dependsOn lab
+    doLast {
+        ['foo.lab', 'bar.lab'].each { name ->
+            def expected = file(name)
+            def actual = file("$buildDir/lab/$name")
+            println actual.text
+            println expected.text
+            assert actual.text == expected.text
+        }
+    }
+}
