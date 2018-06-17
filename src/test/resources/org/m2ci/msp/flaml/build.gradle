@@ -2,6 +2,11 @@ plugins {
     id 'org.m2ci.msp.flaml'
 }
 
+ext {
+    flacFile = file('foobar.flac')
+    yamlFile = file('foobar.yaml')
+}
+
 task hasPlugin {
     doLast {
         assert pluginManager.hasPlugin('org.m2ci.msp.flaml')
@@ -12,6 +17,18 @@ task hasTestResources {
     doLast {
         ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid', 'foo.wav', 'bar.wav', 'foo.lab', 'bar.lab'].each { testResource ->
             assert file(testResource).canRead()
+        }
+    }
+}
+
+task testExtractWav {
+    dependsOn wav
+    doLast {
+        ['foo.wav', 'bar.wav'].each { name ->
+            def expected = file(name)
+            def actual = file("$buildDir/wav/$name")
+            assert actual.canRead()
+            assert actual.bytes == expected.bytes
         }
     }
 }
