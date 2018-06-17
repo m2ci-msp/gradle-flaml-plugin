@@ -19,7 +19,15 @@ class FlamlExtension {
         this.flacFile.set(flacFile)
     }
 
+    void setFlacFile(String flacFilePath) {
+        setFlacFile(project.file(flacFilePath))
+    }
+
     void setYamlFile(File yamlFile) {
         this.yamlFile.set(yamlFile)
+    }
+
+    void setYamlFile(String yamlFilePath) {
+        setYamlFile(project.file(yamlFilePath))
     }
 }

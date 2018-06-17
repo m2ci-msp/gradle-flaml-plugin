@@ -3,8 +3,8 @@ plugins {
 }
 
 flaml {
-    flacFile = file('foobar.flac')
-    yamlFile = file('foobar.yaml')
+    flacFile = 'foobar.flac'
+    yamlFile = 'foobar.yaml'
 }
 
 task hasPlugin {
