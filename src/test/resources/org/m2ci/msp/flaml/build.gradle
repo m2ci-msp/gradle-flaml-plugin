@@ -59,3 +59,14 @@ task testExtractLab {
         }
     }
 }
+
+task testExtractText {
+    dependsOn text
+    doLast {
+        ['foo.txt', 'bar.txt'].each { name ->
+            def expected = file(name)
+            def actual = file("$buildDir/text/$name")
+            assert actual.text == expected.text
+        }
+    }
+}
