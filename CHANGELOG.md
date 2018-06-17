@@ -1,6 +1,13 @@
 Gradle FLAML Plugin
 ===================
 
+[Unreleased]
+------------
+
+### Changed
+
+- [all changes since v0.2.0]
+
 [v0.2.0] - 2018-06-18
 ---------------------
 
@@ -20,6 +27,8 @@ Gradle FLAML Plugin
 
 Initial release
 
+[Unreleased]: https://github.com/m2ci-msp/gradle-flaml-plugin/tree/master
+[all changes since v0.2.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/compare/v0.2.0...HEAD
 [v0.2.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/releases/tag/v0.2.0
 [all changes since v0.1.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/releases/tag/v0.1.0
