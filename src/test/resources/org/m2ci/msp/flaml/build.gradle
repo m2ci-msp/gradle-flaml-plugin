@@ -10,7 +10,7 @@ task hasPlugin {
 
 task hasTestResources {
     doLast {
-        ['foobar.flac', 'foobar.wav', 'foobar.TextGrid', 'foo.lab', 'bar.lab'].each { testResource ->
+        ['foobar.flac', 'foobar.wav', 'foobar.TextGrid', 'foo.wav', 'bar.wav', 'foo.lab', 'bar.lab'].each { testResource ->
             assert file(testResource).canRead()
         }
     }

@@ -2,9 +2,16 @@ form Generate test resources
   sentence Output_directory
 endform
 
-Create Sound from formula... sineWithNoise 1 0 1 44100 1/2 * sin(2*pi*377*x) + randomGauss(0,0.1)
+snd = Create Sound from formula... sineWithNoise 1 0 1 44100 1/2 * sin(2*pi*377*x) + randomGauss(0,0.1)
 Save as WAV file... 'output_directory$'/foobar.wav
 Save as FLAC file... 'output_directory$'/foobar.flac
+
+Extract part... 0.1 0.4 rectangular 1 no
+Save as WAV file... 'output_directory$'/foo.wav
+select snd
+Extract part... 0.6 0.9 rectangular 1 no
+Save as WAV file... 'output_directory$'/bar.wav
+select snd
 
 tg = To TextGrid... basenames
 
