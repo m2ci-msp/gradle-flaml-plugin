@@ -13,6 +13,14 @@ task hasPlugin {
     }
 }
 
+task hasTaskDescriptions {
+    doLast {
+        tasks.findAll { it.group == 'FLAML' }.each { task ->
+            assert task.description
+        }
+    }
+}
+
 task hasExtension {
     doLast {
         assert flaml instanceof org.m2ci.msp.flaml.FlamlExtension

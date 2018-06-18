@@ -28,6 +28,7 @@ class FlamlPluginFunctionalTest {
                 ['help'],
                 ['hasPlugin'],
                 ['tasks'],
+                ['hasTaskDescriptions'],
                 ['hasExtension'],
                 ['hasFlamlResources'],
                 ['hasTestResources'],
