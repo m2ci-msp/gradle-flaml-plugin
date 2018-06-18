@@ -82,6 +82,19 @@ task testExtractLabFiles {
     }
 }
 
+extractTextGrid {
+    textGridFile = layout.buildDirectory.file('foobar.TextGrid')
+}
+
+task testExtractTextGrid {
+    dependsOn extractTextGrid
+    doLast {
+        def expected = file('foobar.TextGrid')
+        def actual = file("$buildDir/foobar.TextGrid")
+        assert actual.text == expected.text
+    }
+}
+
 task testExtractTextFiles {
     dependsOn extractTextFiles
     doLast {

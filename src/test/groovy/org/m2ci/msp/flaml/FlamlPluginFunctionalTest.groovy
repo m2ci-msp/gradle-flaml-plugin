@@ -34,6 +34,7 @@ class FlamlPluginFunctionalTest {
                 ['hasTestResources'],
                 ['testExtractWavFiles'],
                 ['testExtractLabFiles'],
+                ['testExtractTextGrid'],
                 ['testExtractTextFiles']
         ]
     }

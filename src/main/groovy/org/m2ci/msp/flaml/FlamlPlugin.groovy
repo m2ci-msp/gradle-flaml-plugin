@@ -26,6 +26,12 @@ class FlamlPlugin implements Plugin<Project> {
             yamlFile = flamlExtension.yamlFile
         }
 
+        project.task('extractTextGrid', type: ExtractTextGrid, group: 'FLAML') {
+            description = 'Converts YAML to single Praat TextGrid file'
+            yamlFile = flamlExtension.yamlFile
+            textGridFile = project.layout.buildDirectory.file("${project.name}.TextGrid")
+        }
+
         project.task('extractTextFiles', type: ExtractText, group: 'FLAML') {
             description = 'Extracts text files from YAML'
             yamlFile = flamlExtension.yamlFile
