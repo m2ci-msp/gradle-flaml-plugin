@@ -13,13 +13,13 @@ Extract part... 0.6 0.9 rectangular 1 no
 Save as WAV file... 'output_directory$'/bar.wav
 select snd
 
-tg = To TextGrid... basenames
+tg = To TextGrid... prompts
 
 Insert boundary... 1 0.1
 Insert boundary... 1 0.4
 Insert boundary... 1 0.6
 Insert boundary... 1 0.9
-Duplicate tier... 1 2 phones
+Duplicate tier... 1 2 segments
 Insert boundary... 2 0.2
 Insert boundary... 2 0.7
 Insert boundary... 2 0.8
