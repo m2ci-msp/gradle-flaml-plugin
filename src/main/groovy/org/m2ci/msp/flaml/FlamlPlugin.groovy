@@ -15,16 +15,16 @@ class FlamlPlugin implements Plugin<Project> {
         flamlExtension.flacFile = project.file("${project.name}.flac")
         flamlExtension.yamlFile = project.file("${project.name}.yaml")
 
-        project.task('wav', type: ExtractWav) {
+        project.task('extractWavFiles', type: ExtractWav) {
             flacFile = flamlExtension.flacFile
             yamlFile = flamlExtension.yamlFile
         }
 
-        project.task('lab', type: ExtractLab) {
+        project.task('extractLabFiles', type: ExtractLab) {
             yamlFile = flamlExtension.yamlFile
         }
 
-        project.task('text', type: ExtractText) {
+        project.task('extractTextFiles', type: ExtractText) {
             yamlFile = flamlExtension.yamlFile
         }
     }

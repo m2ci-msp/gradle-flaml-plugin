@@ -35,8 +35,8 @@ task hasTestResources {
     }
 }
 
-task testExtractWav {
-    dependsOn wav
+task testExtractWavFiles {
+    dependsOn extractWavFiles
     doLast {
         ['foo.wav', 'bar.wav'].each { name ->
             def expected = file(name)
@@ -47,8 +47,8 @@ task testExtractWav {
     }
 }
 
-task testExtractLab {
-    dependsOn lab
+task testExtractLabFiles {
+    dependsOn extractLabFiles
     doLast {
         ['foo.lab', 'bar.lab'].each { name ->
             def expectedFile = file(name)
@@ -74,8 +74,8 @@ task testExtractLab {
     }
 }
 
-task testExtractText {
-    dependsOn text
+task testExtractTextFiles {
+    dependsOn extractTextFiles
     doLast {
         ['foo.txt', 'bar.txt'].each { name ->
             def expected = file(name)
