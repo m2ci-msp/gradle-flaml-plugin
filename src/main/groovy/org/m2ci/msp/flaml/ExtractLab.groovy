@@ -23,10 +23,10 @@ class ExtractLab extends DefaultTask {
     def extract() {
         new Yaml().load(yamlFile.get().asFile.newReader()).each { utterance ->
             if (utterance.segments) {
-                def time = 0.0f
+                def time = 0.0
                 def intervals = utterance.segments.collect { segment ->
                     def start = time
-                    time += segment.dur
+                    time += segment.dur as BigDecimal
                     def end = time
                     new IntervalAnnotation(start, end, segment.lab)
                 }

@@ -63,8 +63,8 @@ task testExtractLabFiles {
             def expectedTextGrid = new org.m2ci.msp.jtgt.io.XWaveLabelSerializer().fromString(expectedFile.text)
             def expected = expectedTextGrid.tiers[0].collect { tier ->
                 tier.annotations.collect { interval ->
-                    [start: interval.start.round(),
-                     end  : interval.end.round(),
+                    [start: interval.start as BigDecimal,
+                     end  : interval.end as BigDecimal,
                      label: interval.text]
                 }
             }
@@ -72,8 +72,8 @@ task testExtractLabFiles {
             def actualTextGrid = new org.m2ci.msp.jtgt.io.XWaveLabelSerializer().fromString(actualFile.text)
             def actual = actualTextGrid.tiers[0].collect { tier ->
                 tier.annotations.collect { interval ->
-                    [start: interval.start.round(),
-                     end  : interval.end.round(),
+                    [start: interval.start as BigDecimal,
+                     end  : interval.end as BigDecimal,
                      label: interval.text]
                 }
             }
