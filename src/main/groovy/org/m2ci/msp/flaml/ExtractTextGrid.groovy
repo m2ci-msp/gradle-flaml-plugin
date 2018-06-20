@@ -29,23 +29,26 @@ class ExtractTextGrid extends DefaultTask {
         def segmentIntervals = []
         def yaml = new Yaml()
         yaml.load(yamlFile.get().asFile.newReader()).each { utterance ->
-            if (time < utterance.start) {
-                promptIntervals << new IntervalAnnotation(time, utterance.start, '')
-                segmentIntervals << new IntervalAnnotation(time, utterance.start, '')
+            def start = utterance.start as BigDecimal
+            def end = utterance.end as BigDecimal
+            if (time < start) {
+                promptIntervals << new IntervalAnnotation(time, start, '')
+                segmentIntervals << new IntervalAnnotation(time, start, '')
             }
-            time = utterance.start
-            promptIntervals << new IntervalAnnotation(time, utterance.end, utterance.prompt)
+            time = start
+            promptIntervals << new IntervalAnnotation(time, end, utterance.prompt)
             if (utterance.segments) {
                 utterance.segments.each { segment ->
-                    def end = time + segment.dur
+                    def dur = segment.dur as BigDecimal
+                    end = time + dur
                     segmentIntervals << new IntervalAnnotation(time, end, segment.lab)
                     time = end
                 }
-                if (time < utterance.end) {
-                    segmentIntervals << new IntervalAnnotation(time, utterance.end, '')
+                if (time < end) {
+                    segmentIntervals << new IntervalAnnotation(time, end, '')
                 }
             }
-            time = utterance.end
+            time = end
         }
         // determine end time from FLAC via soxi
         def soxi = new ByteArrayOutputStream()
@@ -54,9 +57,9 @@ class ExtractTextGrid extends DefaultTask {
             standardOutput = soxi
         }
         def flacInfo = yaml.load(soxi.toString())
-        def samples = flacInfo.Duration.split(' = ')[1] - 'samples'
-        def sampleRate = flacInfo.'Sample Rate' as float
-        def flacEnd = Float.parseFloat(samples) / sampleRate
+        def samples = flacInfo.Duration.split(' = ')[1] - 'samples' as BigDecimal
+        def sampleRate = flacInfo.'Sample Rate' as BigInteger
+        def flacEnd = samples / sampleRate
         if (time < flacEnd) {
             promptIntervals << new IntervalAnnotation(time, flacEnd, '')
             segmentIntervals << new IntervalAnnotation(time, flacEnd, '')
