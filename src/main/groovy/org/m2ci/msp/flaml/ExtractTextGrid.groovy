@@ -27,8 +27,7 @@ class ExtractTextGrid extends DefaultTask {
         def time = 0.0
         def promptIntervals = []
         def segmentIntervals = []
-        def yaml = new Yaml()
-        yaml.load(yamlFile.get().asFile.newReader()).each { utterance ->
+        new Yaml().load(yamlFile.get().asFile.newReader()).each { utterance ->
             def start = utterance.start as BigDecimal
             def end = utterance.end as BigDecimal
             if (time < start) {
@@ -56,9 +55,9 @@ class ExtractTextGrid extends DefaultTask {
             commandLine 'soxi', flacFile.get().asFile
             standardOutput = soxi
         }
-        def flacInfo = yaml.load(soxi.toString())
-        def samples = flacInfo.Duration.split(' = ')[1] - 'samples' as BigDecimal
-        def sampleRate = flacInfo.'Sample Rate' as BigInteger
+        def flacInfo = soxi.toString().readLines()
+        def samples = flacInfo.find { it.startsWith('Duration') }.split(' = ')[1] - 'samples' as BigDecimal
+        def sampleRate = flacInfo.find { it.startsWith('Sample Rate') }.split(':').last().trim() as BigInteger
         def flacEnd = samples / sampleRate
         if (time < flacEnd) {
             promptIntervals << new IntervalAnnotation(time, flacEnd, '')
