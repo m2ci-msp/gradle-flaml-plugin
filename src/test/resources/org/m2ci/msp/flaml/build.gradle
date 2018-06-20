@@ -60,23 +60,9 @@ task testExtractLabFiles {
     doLast {
         ['foo.lab', 'bar.lab'].each { name ->
             def expectedFile = file(name)
-            def expectedTextGrid = new org.m2ci.msp.jtgt.io.XWaveLabelSerializer().fromString(expectedFile.text)
-            def expected = expectedTextGrid.tiers[0].collect { tier ->
-                tier.annotations.collect { interval ->
-                    [start: interval.start as BigDecimal,
-                     end  : interval.end as BigDecimal,
-                     label: interval.text]
-                }
-            }
+            def expected = new org.m2ci.msp.jtgt.io.XWaveLabelSerializer().fromString(expectedFile.text)
             def actualFile = file("$buildDir/lab/$name")
-            def actualTextGrid = new org.m2ci.msp.jtgt.io.XWaveLabelSerializer().fromString(actualFile.text)
-            def actual = actualTextGrid.tiers[0].collect { tier ->
-                tier.annotations.collect { interval ->
-                    [start: interval.start as BigDecimal,
-                     end  : interval.end as BigDecimal,
-                     label: interval.text]
-                }
-            }
+            def actual = new org.m2ci.msp.jtgt.io.XWaveLabelSerializer().fromString(actualFile.text)
             assert actual == expected
         }
     }
@@ -89,9 +75,11 @@ extractTextGrid {
 task testExtractTextGrid {
     dependsOn extractTextGrid
     doLast {
-        def expected = file('foobar.TextGrid')
-        def actual = file("$buildDir/foobar.TextGrid")
-        assert actual.text == expected.text
+        def expectedFile = file('foobar.TextGrid')
+        def expected = new org.m2ci.msp.jtgt.io.TextGridSerializer().fromString(expectedFile.text)
+        def actualFile = file("$buildDir/foobar.TextGrid")
+        def actual = new org.m2ci.msp.jtgt.io.TextGridSerializer().fromString(actualFile.text)
+        assert actual == expected
     }
 }
 
