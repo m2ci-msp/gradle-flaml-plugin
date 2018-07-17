@@ -19,11 +19,13 @@ class FlamlPlugin implements Plugin<Project> {
             description = 'Extracts WAV files from FLAC+YAML'
             flacFile = flamlExtension.flacFile
             yamlFile = flamlExtension.yamlFile
+            destDir = project.layout.buildDirectory.dir('wav')
         }
 
         project.task('extractLabFiles', type: ExtractLab, group: 'FLAML') {
             description = 'Extracts XWaves lab files from YAML'
             yamlFile = flamlExtension.yamlFile
+            destDir = project.layout.buildDirectory.dir('lab')
         }
 
         project.task('extractTextGrid', type: ExtractTextGrid, group: 'FLAML') {
@@ -36,6 +38,7 @@ class FlamlPlugin implements Plugin<Project> {
         project.task('extractTextFiles', type: ExtractText, group: 'FLAML') {
             description = 'Extracts text files from YAML'
             yamlFile = flamlExtension.yamlFile
+            destDir = project.layout.buildDirectory.dir('text')
         }
     }
 }

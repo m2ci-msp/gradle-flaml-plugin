@@ -1,6 +1,7 @@
 package org.m2ci.msp.flaml
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
@@ -14,10 +15,10 @@ import org.yaml.snakeyaml.Yaml
 class ExtractLab extends DefaultTask {
 
     @InputFile
-    RegularFileProperty yamlFile = newInputFile()
+    final RegularFileProperty yamlFile = newInputFile()
 
     @OutputDirectory
-    def destDir = project.file("$project.buildDir/lab")
+    final DirectoryProperty destDir = newOutputDirectory()
 
     @TaskAction
     def extract() {
@@ -33,7 +34,7 @@ class ExtractLab extends DefaultTask {
                 def tierName = 'phones'
                 def tier = new IntervalTier(tierName, intervals.first().start, intervals.last().end, intervals)
                 def textGrid = new TextGrid(null, intervals.first().start, intervals.last().end, [tier])
-                project.file("$destDir/${utterance.prompt}.lab").text = new XWaveLabelSerializer().toString(textGrid, tierName)
+                destDir.file("${utterance.prompt}.lab").get().asFile.text = new XWaveLabelSerializer().toString(textGrid, tierName)
             }
         }
     }

@@ -14,13 +14,13 @@ import org.yaml.snakeyaml.Yaml
 class ExtractTextGrid extends DefaultTask {
 
     @InputFile
-    RegularFileProperty flacFile = newInputFile()
+    final RegularFileProperty flacFile = newInputFile()
 
     @InputFile
-    RegularFileProperty yamlFile = newInputFile()
+    final RegularFileProperty yamlFile = newInputFile()
 
     @OutputFile
-    RegularFileProperty textGridFile = newOutputFile()
+    final RegularFileProperty textGridFile = newOutputFile()
 
     @TaskAction
     void extract() {
