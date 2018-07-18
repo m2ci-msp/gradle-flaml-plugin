@@ -1,6 +1,7 @@
 package org.m2ci.msp.flaml
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
@@ -10,13 +11,13 @@ import org.yaml.snakeyaml.Yaml
 class ExtractWav extends DefaultTask {
 
     @InputFile
-    RegularFileProperty flacFile = newInputFile()
+    final RegularFileProperty flacFile = newInputFile()
 
     @InputFile
-    RegularFileProperty yamlFile = newInputFile()
+    final RegularFileProperty yamlFile = newInputFile()
 
     @OutputDirectory
-    def destDir = project.file("$project.buildDir/wav")
+    final DirectoryProperty destDir = newOutputDirectory()
 
     @TaskAction
     def extract() {
@@ -24,7 +25,7 @@ class ExtractWav extends DefaultTask {
             project.exec {
                 commandLine 'sox',
                         flacFile.get().asFile,
-                        project.file("$destDir/${utterance.prompt}.wav"),
+                        destDir.file("${utterance.prompt}.wav").get().asFile,
                         'trim',
                         utterance.start,
                         '=' + utterance.end

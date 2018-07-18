@@ -27,12 +27,15 @@ class FlamlPluginFunctionalTest {
         [
                 ['help'],
                 ['hasPlugin'],
+                ['tasks'],
+                ['hasTaskDescriptions'],
                 ['hasExtension'],
                 ['hasFlamlResources'],
                 ['hasTestResources'],
-                ['testExtractWav'],
-                ['testExtractLab'],
-                ['testExtractText']
+                ['testExtractWavFiles'],
+                ['testExtractLabFiles'],
+                ['testExtractTextGrid'],
+                ['testExtractTextFiles']
         ]
     }
 

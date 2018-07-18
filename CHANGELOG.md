@@ -7,6 +7,7 @@ Gradle FLAML Plugin
 ### Changed
 
 - switched license to LGPL
+- deferred configuration via Provider API
 - [all changes since v0.2.0]
 
 [v0.2.0] - 2018-06-18
