@@ -14,7 +14,7 @@ class FlamlPluginFunctionalTest {
     void setup() {
         def projectDir = File.createTempDir()
         gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
-        ['build.gradle', 'foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid',
+        ['build-core.gradle', 'build-extraction.gradle', 'foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid',
          'foo.wav', 'bar.wav', 'foo.lab', 'bar.lab', 'foo.txt', 'bar.txt'].each { resourceName ->
             new File(projectDir, resourceName).withOutputStream { stream ->
                 stream << this.getClass().getResourceAsStream(resourceName)
@@ -23,7 +23,7 @@ class FlamlPluginFunctionalTest {
     }
 
     @DataProvider
-    Object[][] tasks() {
+    Object[][] coreTasks() {
         [
                 ['help'],
                 ['hasPlugin'],
@@ -32,6 +32,12 @@ class FlamlPluginFunctionalTest {
                 ['hasExtension'],
                 ['hasFlamlResources'],
                 ['hasTestResources'],
+        ]
+    }
+
+    @DataProvider
+    Object[][] extractionTasks() {
+        [
                 ['testExtractWavFiles'],
                 ['testExtractLabFiles'],
                 ['testExtractTextGrid'],
@@ -39,9 +45,16 @@ class FlamlPluginFunctionalTest {
         ]
     }
 
-    @Test(dataProvider = 'tasks')
-    void testTasks(String taskName) {
-        def result = gradle.withArguments(taskName, '-s').build()
+    @Test(dataProvider = 'coreTasks')
+    void testCoreTasks(String taskName) {
+        def result = gradle.withArguments('--build-file', 'build-core.gradle', taskName).build()
+        println result.output
+        assert result.task(":$taskName").outcome in [TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE]
+    }
+
+    @Test(dataProvider = 'extractionTasks')
+    void testExtractionTasks(String taskName) {
+        def result = gradle.withArguments('--build-file', 'build-extraction.gradle', taskName).build()
         println result.output
         assert result.task(":$taskName").outcome in [TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE]
     }
