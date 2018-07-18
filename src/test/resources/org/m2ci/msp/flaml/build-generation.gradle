@@ -7,6 +7,21 @@ flaml {
     yamlFile = 'foobar.yaml'
 }
 
+injectText {
+    textDir = extractTextFiles.destDir
+}
+
+task testInjectText {
+    dependsOn injectText
+    doLast {
+        def actualFile = injectSegments.yamlDestFile.get().asFile
+        def expectedFile = flaml.yamlFile.get().asFile
+        def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
+        def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8'))
+        assert actual == expected
+    }
+}
+
 injectSegments {
     labDir = extractLabFiles.destDir
 }

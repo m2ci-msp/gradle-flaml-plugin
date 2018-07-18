@@ -45,6 +45,14 @@ class FlamlPlugin implements Plugin<Project> {
             destDir = project.layout.buildDirectory.dir('text')
         }
 
+        project.tasks.register 'injectText', InjectText, {
+            group = 'FLAML'
+            description = 'Injects text files into YAML'
+            textDir = project.layout.buildDirectory.dir('text')
+            yamlSrcFile = flamlExtension.yamlFile
+            yamlDestFile = project.layout.buildDirectory.file("${project.name}.yaml")
+        }
+
         project.tasks.register 'injectSegments', InjectSegments, {
             group = 'FLAML'
             description = 'Injects lab files into YAML'
