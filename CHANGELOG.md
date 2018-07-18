@@ -4,6 +4,10 @@ Gradle FLAML Plugin
 [Unreleased]
 ------------
 
+### Added
+
+- tasks to inject text and segments from text files and XWaves lab files, respectively, into YAML
+
 ### Changed
 
 - switched license to LGPL
