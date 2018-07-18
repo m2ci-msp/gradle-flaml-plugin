@@ -14,7 +14,8 @@ class FlamlPluginFunctionalTest {
     void setup() {
         def projectDir = File.createTempDir()
         gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
-        ['build-core.gradle', 'build-extraction.gradle', 'foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid',
+        ['build-core.gradle', 'build-extraction.gradle', 'build-generation.gradle',
+         'foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid',
          'foo.wav', 'bar.wav', 'foo.lab', 'bar.lab', 'foo.txt', 'bar.txt'].each { resourceName ->
             new File(projectDir, resourceName).withOutputStream { stream ->
                 stream << this.getClass().getResourceAsStream(resourceName)
@@ -45,6 +46,13 @@ class FlamlPluginFunctionalTest {
         ]
     }
 
+    @DataProvider
+    Object[][] generationTasks() {
+        [
+                ['testInjectSegments']
+        ]
+    }
+
     @Test(dataProvider = 'coreTasks')
     void testCoreTasks(String taskName) {
         def result = gradle.withArguments('--build-file', 'build-core.gradle', taskName).build()
@@ -55,6 +63,13 @@ class FlamlPluginFunctionalTest {
     @Test(dataProvider = 'extractionTasks')
     void testExtractionTasks(String taskName) {
         def result = gradle.withArguments('--build-file', 'build-extraction.gradle', taskName).build()
+        println result.output
+        assert result.task(":$taskName").outcome in [TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE]
+    }
+
+    @Test(dataProvider = 'generationTasks')
+    void testGenerationTasks(String taskName) {
+        def result = gradle.withArguments('--build-file', 'build-generation.gradle', taskName).build()
         println result.output
         assert result.task(":$taskName").outcome in [TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE]
     }

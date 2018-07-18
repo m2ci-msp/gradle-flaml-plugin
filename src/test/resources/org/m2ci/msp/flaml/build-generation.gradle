@@ -1,0 +1,23 @@
+plugins {
+    id 'org.m2ci.msp.flaml'
+}
+
+flaml {
+    flacFile = 'foobar.flac'
+    yamlFile = 'foobar.yaml'
+}
+
+injectSegments {
+    labDir = extractLabFiles.destDir
+}
+
+task testInjectSegments {
+    dependsOn injectSegments
+    doLast {
+        def actualFile = injectSegments.yamlDestFile.get().asFile
+        def expectedFile = flaml.yamlFile.get().asFile
+        def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
+        def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8'))
+        assert actual == expected
+    }
+}
