@@ -23,10 +23,6 @@ task testGenerateFlac {
     }
 }
 
-injectText {
-    textDir = extractTextFiles.destDir
-}
-
 task testInjectText {
     dependsOn injectText
     doLast {
@@ -36,10 +32,6 @@ task testInjectText {
         def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8'))
         assert actual == expected
     }
-}
-
-injectSegments {
-    labDir = extractLabFiles.destDir
 }
 
 task testInjectSegments {

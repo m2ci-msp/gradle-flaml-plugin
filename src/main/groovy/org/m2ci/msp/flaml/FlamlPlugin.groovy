@@ -55,7 +55,7 @@ class FlamlPlugin implements Plugin<Project> {
         project.tasks.register 'injectText', InjectText, {
             group = 'FLAML'
             description = 'Injects text files into YAML'
-            textDir = project.layout.buildDirectory.dir('text')
+            textDir = project.tasks.named('extractTextFiles').get().destDir
             yamlSrcFile = flamlExtension.yamlFile
             yamlDestFile = project.layout.buildDirectory.file("${project.name}.yaml")
         }
@@ -63,7 +63,7 @@ class FlamlPlugin implements Plugin<Project> {
         project.tasks.register 'injectSegments', InjectSegments, {
             group = 'FLAML'
             description = 'Injects lab files into YAML'
-            labDir = project.layout.buildDirectory.dir('lab')
+            labDir = project.tasks.named('extractLabFiles').get().destDir
             yamlSrcFile = flamlExtension.yamlFile
             yamlDestFile = project.layout.buildDirectory.file("${project.name}.yaml")
         }
