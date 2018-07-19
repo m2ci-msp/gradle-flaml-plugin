@@ -15,7 +15,7 @@ class FlamlPluginFunctionalTest {
         def projectDir = File.createTempDir()
         gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
         ['build-core.gradle', 'build-extraction.gradle', 'build-generation.gradle',
-         'foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid',
+         'foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid', 'foo_padded.wav', 'bar_padded.wav',
          'foo.wav', 'bar.wav', 'foo.lab', 'bar.lab', 'foo.txt', 'bar.txt'].each { resourceName ->
             new File(projectDir, resourceName).withOutputStream { stream ->
                 stream << this.getClass().getResourceAsStream(resourceName)
