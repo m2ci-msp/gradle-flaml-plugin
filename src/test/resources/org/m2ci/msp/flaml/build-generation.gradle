@@ -7,6 +7,10 @@ flaml {
     yamlFile = 'foobar.yaml'
 }
 
+generateFlac {
+    srcFiles = files('foo_padded.wav', 'bar_padded.wav')
+}
+
 task testGenerateFlac {
     dependsOn generateFlac
     doLast {
