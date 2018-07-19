@@ -1,8 +1,10 @@
 package org.m2ci.msp.flaml
 
+import groovy.transform.ToString
 import org.gradle.api.Project
 import org.gradle.api.file.RegularFileProperty
 
+@ToString(includeNames = true)
 class FlamlExtension {
 
     Project project
