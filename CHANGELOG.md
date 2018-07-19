@@ -15,6 +15,7 @@ Gradle FLAML Plugin
 
 - switched license to LGPL
 - upgrade Gradle to v4.9
+- upgrade jtgt to v0.6.1
 - deferred configuration via Provider API
 - [all changes since v0.2.0]
 
