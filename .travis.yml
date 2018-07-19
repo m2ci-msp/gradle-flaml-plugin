@@ -12,6 +12,7 @@ jdk:
 addons:
   apt:
     packages:
+    - flac
     - sox
 
 script: ./gradlew check --info
