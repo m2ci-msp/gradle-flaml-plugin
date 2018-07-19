@@ -28,17 +28,17 @@ class InjectSegments extends DefaultTask {
         def options = new DumperOptions()
         options.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
         def yaml = new Yaml(options)
-        def prompts = yaml.load(yamlSrcFile.get().asFile.newReader('UTF-8'))
-        prompts.each { prompt ->
-            File labFile = labDir.file("${prompt.prompt}.lab").get().asFile
+        def utterances = yaml.load(yamlSrcFile.get().asFile.newReader('UTF-8'))
+        utterances.each { utterance ->
+            File labFile = labDir.file("${utterance.prompt}.lab").get().asFile
             if (labFile.canRead()) {
                 TextGrid tg = new XWaveLabelSerializer().fromString(labFile.getText('UTF-8'))
-                prompt.segments = tg.tiers[0].annotations.collect {
+                utterance.segments = tg.tiers[0].annotations.collect {
                     [lab: it.text,
                      dur: (it.end - it.start).round(6)]
                 }
             }
         }
-        yaml.dump(prompts, yamlDestFile.get().asFile.newWriter('UTF-8'))
+        yaml.dump(utterances, yamlDestFile.get().asFile.newWriter('UTF-8'))
     }
 }

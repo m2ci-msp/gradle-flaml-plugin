@@ -26,13 +26,13 @@ class InjectText extends DefaultTask {
         def options = new DumperOptions()
         options.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
         def yaml = new Yaml(options)
-        def prompts = yaml.load(yamlSrcFile.get().asFile.newReader('UTF-8'))
-        prompts.each { prompt ->
-            File textFile = textDir.file("${prompt.prompt}.txt").get().asFile
+        def utterances = yaml.load(yamlSrcFile.get().asFile.newReader('UTF-8'))
+        utterances.each { utterance ->
+            File textFile = textDir.file("${utterance.prompt}.txt").get().asFile
             if (textFile.canRead()) {
-                prompt.text = textFile.getText('UTF-8')
+                utterance.text = textFile.getText('UTF-8')
             }
         }
-        yaml.dump(prompts, yamlDestFile.get().asFile.newWriter('UTF-8'))
+        yaml.dump(utterances, yamlDestFile.get().asFile.newWriter('UTF-8'))
     }
 }
