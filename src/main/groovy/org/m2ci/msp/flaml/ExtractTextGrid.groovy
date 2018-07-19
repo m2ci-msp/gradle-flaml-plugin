@@ -52,12 +52,16 @@ class ExtractTextGrid extends DefaultTask {
         // determine end time from FLAC via soxi
         def soxi = new ByteArrayOutputStream()
         project.exec {
-            commandLine 'soxi', flacFile.get().asFile
+            commandLine 'soxi', '-s', flacFile.get().asFile
             standardOutput = soxi
         }
-        def flacInfo = soxi.toString().readLines()
-        def samples = flacInfo.find { it.startsWith('Duration') }.split(' = ')[1] - 'samples' as BigDecimal
-        def sampleRate = flacInfo.find { it.startsWith('Sample Rate') }.split(':').last().trim() as BigInteger
+        def samples = soxi.toString().readLines().first() as BigDecimal
+        soxi = new ByteArrayOutputStream()
+        project.exec {
+            commandLine 'soxi', '-r', flacFile.get().asFile
+            standardOutput = soxi
+        }
+        def sampleRate = soxi.toString().readLines().first() as BigDecimal
         def flacEnd = samples / sampleRate
         if (time < flacEnd) {
             promptIntervals << new IntervalAnnotation(time, flacEnd, '')
