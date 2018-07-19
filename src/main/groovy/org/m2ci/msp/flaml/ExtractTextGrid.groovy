@@ -46,6 +46,8 @@ class ExtractTextGrid extends DefaultTask {
                 if (time < end) {
                     segmentIntervals << new IntervalAnnotation(time, end, '')
                 }
+            } else {
+                segmentIntervals << new IntervalAnnotation(time, end, '')
             }
             time = end
         }
