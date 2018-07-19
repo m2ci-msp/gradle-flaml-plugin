@@ -10,7 +10,7 @@ flaml {
 task testExtractWavFiles {
     dependsOn extractWavFiles
     doLast {
-        ['foo.wav', 'bar.wav'].each { name ->
+        ['foo.wav', 'bar.wav', 'baz.wav'].each { name ->
             def expected = file(name)
             def actual = file("$buildDir/wav/$name")
             assert actual.canRead()
@@ -22,7 +22,7 @@ task testExtractWavFiles {
 task testExtractLabFiles {
     dependsOn extractLabFiles
     doLast {
-        ['foo.lab', 'bar.lab'].each { name ->
+        ['foo.lab', 'baz.lab'].each { name ->
             def expectedFile = file(name)
             def expected = new org.m2ci.msp.jtgt.io.XWaveLabelSerializer().fromString(expectedFile.text)
             def actualFile = file("$buildDir/lab/$name")
@@ -50,7 +50,7 @@ task testExtractTextGrid {
 task testExtractTextFiles {
     dependsOn extractTextFiles
     doLast {
-        ['foo.txt', 'bar.txt'].each { name ->
+        ['foo.txt', 'baz.txt'].each { name ->
             def expected = file(name)
             def actual = file("$buildDir/text/$name")
             assert actual.text == expected.text

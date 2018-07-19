@@ -8,7 +8,7 @@ flaml {
 }
 
 generateFlac {
-    srcFiles = files('foo_padded.wav', 'bar_padded.wav')
+    srcFiles = files('foo_padded.wav', 'bar.wav', 'baz_padded.wav')
 }
 
 task testGenerateFlac {
@@ -32,8 +32,11 @@ task testGenerateYaml {
         def expected = [
                 [prompt: 'foo_padded',
                  start : 0.0,
+                 end   : 0.45],
+                [prompt: 'bar',
+                 start : 0.45,
                  end   : 0.5],
-                [prompt: 'bar_padded',
+                [prompt: 'baz_padded',
                  start : 0.5,
                  end   : 1.2]
         ]
