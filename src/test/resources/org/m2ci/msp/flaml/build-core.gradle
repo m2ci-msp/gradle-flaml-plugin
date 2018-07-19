@@ -1,0 +1,44 @@
+plugins {
+    id 'org.m2ci.msp.flaml'
+}
+
+flaml {
+    flacFile = 'foobar.flac'
+    yamlFile = 'foobar.yaml'
+}
+
+task hasPlugin {
+    doLast {
+        assert pluginManager.hasPlugin('org.m2ci.msp.flaml')
+    }
+}
+
+task hasTaskDescriptions {
+    doLast {
+        tasks.findAll { it.group == 'FLAML' }.each { task ->
+            assert task.description
+        }
+    }
+}
+
+task hasExtension {
+    doLast {
+        assert flaml instanceof org.m2ci.msp.flaml.FlamlExtension
+    }
+}
+
+task hasFlamlResources {
+    doLast {
+        assert flaml.yamlFile.get().asFile.canRead()
+        assert flaml.flacFile.get().asFile.canRead()
+    }
+}
+
+task hasTestResources {
+    doLast {
+        ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid', 'foo_padded.wav', 'bar_padded.wav',
+         'foo.wav', 'bar.wav', 'foo.lab', 'bar.lab', 'foo.txt', 'bar.txt'].each { testResource ->
+            assert file(testResource).canRead()
+        }
+    }
+}

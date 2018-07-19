@@ -44,5 +44,35 @@ class FlamlPlugin implements Plugin<Project> {
             yamlFile = flamlExtension.yamlFile
             destDir = project.layout.buildDirectory.dir('text')
         }
+
+        project.tasks.register 'generateFlac', GenerateFlac, {
+            group = 'FLAML'
+            description = 'Generates FLAC from WAV file collection'
+            srcFiles = project.layout.buildDirectory.dir('wav').get().asFileTree
+            flacFile = project.layout.buildDirectory.file("${project.name}.flac")
+        }
+
+        project.tasks.register 'generateYaml', GenerateYaml, {
+            group = 'FLAML'
+            description = 'Generates YAML from WAV file collection'
+            srcFiles = project.tasks.named('generateFlac').get().srcFiles
+            yamlFile = project.layout.buildDirectory.file("${project.name}.yaml")
+        }
+
+        project.tasks.register 'injectText', InjectText, {
+            group = 'FLAML'
+            description = 'Injects text files into YAML'
+            textDir = project.tasks.named('extractTextFiles').get().destDir
+            yamlSrcFile = flamlExtension.yamlFile
+            yamlDestFile = project.layout.buildDirectory.file("${project.name}.yaml")
+        }
+
+        project.tasks.register 'injectSegments', InjectSegments, {
+            group = 'FLAML'
+            description = 'Injects lab files into YAML'
+            labDir = project.tasks.named('extractLabFiles').get().destDir
+            yamlSrcFile = flamlExtension.yamlFile
+            yamlDestFile = project.layout.buildDirectory.file("${project.name}.yaml")
+        }
     }
 }

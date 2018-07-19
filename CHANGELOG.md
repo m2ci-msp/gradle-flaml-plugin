@@ -4,6 +4,13 @@ Gradle FLAML Plugin
 [Unreleased]
 ------------
 
+### Added
+
+- new tasks to
+  - generate FLAC by concatenating WAV files
+  - inject text from text files into YAML
+  - inject segments from XWaves lab files into YAML
+
 ### Changed
 
 - switched license to LGPL

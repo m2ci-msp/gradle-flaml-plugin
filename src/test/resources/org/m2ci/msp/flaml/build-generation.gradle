@@ -1,0 +1,64 @@
+plugins {
+    id 'org.m2ci.msp.flaml'
+}
+
+flaml {
+    flacFile = 'foobar.flac'
+    yamlFile = 'foobar.yaml'
+}
+
+generateFlac {
+    srcFiles = files('foo_padded.wav', 'bar_padded.wav')
+}
+
+task testGenerateFlac {
+    dependsOn generateFlac
+    doLast {
+        def actualFile = generateFlac.flacFile.get().asFile
+        assert actualFile.canRead()
+        def expectedFile = file('foobar.flac')
+        def actual = "metaflac --show-md5sum $actualFile".execute().text.trim()
+        def expected = "metaflac --show-md5sum $expectedFile".execute().text.trim()
+        assert actual == expected
+    }
+}
+
+task testGenerateYaml {
+    dependsOn generateYaml
+    doLast {
+        def actualFile = generateYaml.yamlFile.get().asFile
+        def expectedFile = file('foobar.yaml')
+        def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
+        def expected = [
+                [prompt: 'foo_padded',
+                 start : 0.0,
+                 end   : 0.5],
+                [prompt: 'bar_padded',
+                 start : 0.5,
+                 end   : 1.2]
+        ]
+        assert actual == expected
+    }
+}
+
+task testInjectText {
+    dependsOn injectText
+    doLast {
+        def actualFile = injectSegments.yamlDestFile.get().asFile
+        def expectedFile = flaml.yamlFile.get().asFile
+        def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
+        def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8'))
+        assert actual == expected
+    }
+}
+
+task testInjectSegments {
+    dependsOn injectSegments
+    doLast {
+        def actualFile = injectSegments.yamlDestFile.get().asFile
+        def expectedFile = flaml.yamlFile.get().asFile
+        def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
+        def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8'))
+        assert actual == expected
+    }
+}

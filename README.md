@@ -10,6 +10,7 @@ Prerequisites
 -------------
 
 [Java] (8 or newer) and [SoX] must be installed.
+[FLAC] must be installed for testing.
 
 Plugin Usage
 ------------
