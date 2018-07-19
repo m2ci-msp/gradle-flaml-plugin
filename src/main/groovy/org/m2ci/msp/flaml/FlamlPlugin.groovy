@@ -45,6 +45,13 @@ class FlamlPlugin implements Plugin<Project> {
             destDir = project.layout.buildDirectory.dir('text')
         }
 
+        project.tasks.register 'generateFlac', GenerateFlac, {
+            group = 'FLAML'
+            description = 'Generates FLAC from WAV file collection'
+            srcFiles = project.layout.buildDirectory.dir('wav').get().asFileTree
+            flacFile = project.layout.buildDirectory.file("${project.name}.flac")
+        }
+
         project.tasks.register 'injectText', InjectText, {
             group = 'FLAML'
             description = 'Injects text files into YAML'
