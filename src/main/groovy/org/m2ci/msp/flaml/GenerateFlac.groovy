@@ -13,7 +13,7 @@ class GenerateFlac extends DefaultTask {
     FileCollection srcFiles = project.files()
 
     @OutputFile
-    RegularFileProperty flacFile = newOutputFile()
+    final RegularFileProperty flacFile = newOutputFile()
 
     @TaskAction
     void generate() {
