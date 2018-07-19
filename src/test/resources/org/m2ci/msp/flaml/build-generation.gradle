@@ -7,6 +7,18 @@ flaml {
     yamlFile = 'foobar.yaml'
 }
 
+task testGenerateFlac {
+    dependsOn generateFlac
+    doLast {
+        def actualFile = generateFlac.flacFile.get().asFile
+        assert actualFile.canRead()
+        def expectedFile = file('foobar.flac')
+        def actual = "metaflac --show-md5sum $actualFile".execute().text.trim()
+        def expected = "metaflac --show-md5sum $expectedFile".execute().text.trim()
+        assert actual == expected
+    }
+}
+
 injectText {
     textDir = extractTextFiles.destDir
 }

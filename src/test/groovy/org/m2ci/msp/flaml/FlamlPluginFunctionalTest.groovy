@@ -49,6 +49,7 @@ class FlamlPluginFunctionalTest {
     @DataProvider
     Object[][] generationTasks() {
         [
+                ['testGenerateFlac'],
                 ['testInjectText'],
                 ['testInjectSegments']
         ]
