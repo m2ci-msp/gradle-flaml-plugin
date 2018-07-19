@@ -50,6 +50,7 @@ class FlamlPluginFunctionalTest {
     Object[][] generationTasks() {
         [
                 ['testGenerateFlac'],
+                ['testGenerateYaml'],
                 ['testInjectText'],
                 ['testInjectSegments']
         ]
