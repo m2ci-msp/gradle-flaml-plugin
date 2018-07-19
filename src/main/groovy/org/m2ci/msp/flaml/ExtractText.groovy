@@ -19,7 +19,9 @@ class ExtractText extends DefaultTask {
     @TaskAction
     def extract() {
         new Yaml().load(yamlFile.get().asFile.newReader()).each { utterance ->
-            destDir.file("${utterance.prompt}.txt").get().asFile.text = utterance.text
+            if (utterance.text) {
+                destDir.file("${utterance.prompt}.txt").get().asFile.text = utterance.text
+            }
         }
     }
 }
