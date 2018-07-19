@@ -47,7 +47,7 @@ task testGenerateYaml {
 task testInjectText {
     dependsOn injectText
     doLast {
-        def actualFile = injectSegments.yamlDestFile.get().asFile
+        def actualFile = generateYaml.yamlFile.get().asFile
         def expectedFile = flaml.yamlFile.get().asFile
         def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
         def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8'))
@@ -58,7 +58,7 @@ task testInjectText {
 task testInjectSegments {
     dependsOn injectSegments
     doLast {
-        def actualFile = injectSegments.yamlDestFile.get().asFile
+        def actualFile = generateYaml.yamlFile.get().asFile
         def expectedFile = flaml.yamlFile.get().asFile
         def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
         def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8'))
