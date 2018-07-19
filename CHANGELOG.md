@@ -6,7 +6,10 @@ Gradle FLAML Plugin
 
 ### Added
 
-- tasks to inject text and segments from text files and XWaves lab files, respectively, into YAML
+- new tasks to
+  - generate FLAC by concatenating WAV files
+  - inject text from text files into YAML
+  - inject segments from XWaves lab files into YAML
 
 ### Changed
 
