@@ -9,6 +9,7 @@ Gradle FLAML Plugin
 - new tasks to
   - extract TextGrid from YAML (and FLAC)
   - generate FLAC by concatenating WAV files
+  - generate YAML from WAV files or TextGrid
   - inject text from text files into YAML
   - inject segments from XWaves lab files into YAML
 
