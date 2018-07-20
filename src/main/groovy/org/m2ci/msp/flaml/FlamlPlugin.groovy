@@ -59,6 +59,13 @@ class FlamlPlugin implements Plugin<Project> {
             yamlFile = project.layout.buildDirectory.file("${project.name}.yaml")
         }
 
+        project.tasks.register 'generateYamlFromTextGrid', GenerateYamlFromTextGrid, {
+            group = 'FLAML'
+            description = 'Generates YAML from TextGrid'
+            srcFile = project.tasks.named('extractTextGrid').get().textGridFile
+            yamlFile = project.layout.buildDirectory.file("${project.name}.yaml")
+        }
+
         project.tasks.register 'injectText', InjectText, {
             group = 'FLAML'
             description = 'Injects text files into YAML'
