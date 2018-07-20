@@ -51,6 +51,7 @@ class FlamlPluginFunctionalTest {
         [
                 ['testGenerateFlac'],
                 ['testGenerateYaml'],
+                ['testGenerateYamlFromTextGrid'],
                 ['testInjectText'],
                 ['testInjectSegments']
         ]

@@ -44,6 +44,20 @@ task testGenerateYaml {
     }
 }
 
+task testGenerateYamlFromTextGrid {
+    dependsOn generateYamlFromTextGrid
+    doLast {
+        def actualFile = generateYamlFromTextGrid.yamlFile.get().asFile
+        def expectedFile = flaml.yamlFile.get().asFile
+        def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
+        def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8')).collect {
+            it.remove 'text'
+            it
+        }
+        assert actual == expected
+    }
+}
+
 task testInjectText {
     dependsOn injectText
     doLast {
