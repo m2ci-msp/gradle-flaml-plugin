@@ -19,7 +19,7 @@ class GenerateYaml extends DefaultTask {
 
     @TaskAction
     void generate() {
-        def prompts = []
+        def utterances = []
         def start = 0.0
         srcFiles.each { srcFile ->
             // determine end time from WAV via soxi
@@ -38,7 +38,7 @@ class GenerateYaml extends DefaultTask {
             def end = start + samples / sampleRate
 
             // add prompt
-            prompts << [
+            utterances << [
                     prompt: srcFile.name - '.wav',
                     start : start,
                     end   : end
@@ -48,6 +48,6 @@ class GenerateYaml extends DefaultTask {
         def options = new DumperOptions()
         options.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
         def yaml = new Yaml(options)
-        yaml.dump(prompts, yamlFile.get().asFile.newWriter('UTF-8'))
+        yaml.dump(utterances, yamlFile.get().asFile.newWriter('UTF-8'))
     }
 }

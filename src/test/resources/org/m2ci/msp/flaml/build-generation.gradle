@@ -8,7 +8,7 @@ flaml {
 }
 
 generateFlac {
-    srcFiles = files('foo_padded.wav', 'bar_padded.wav')
+    srcFiles = files('foo_padded.wav', 'bar.wav', 'baz_padded.wav')
 }
 
 task testGenerateFlac {
@@ -32,8 +32,11 @@ task testGenerateYaml {
         def expected = [
                 [prompt: 'foo_padded',
                  start : 0.0,
+                 end   : 0.45],
+                [prompt: 'bar',
+                 start : 0.45,
                  end   : 0.5],
-                [prompt: 'bar_padded',
+                [prompt: 'baz_padded',
                  start : 0.5,
                  end   : 1.2]
         ]
@@ -44,7 +47,7 @@ task testGenerateYaml {
 task testInjectText {
     dependsOn injectText
     doLast {
-        def actualFile = injectSegments.yamlDestFile.get().asFile
+        def actualFile = generateYaml.yamlFile.get().asFile
         def expectedFile = flaml.yamlFile.get().asFile
         def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
         def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8'))
@@ -55,7 +58,7 @@ task testInjectText {
 task testInjectSegments {
     dependsOn injectSegments
     doLast {
-        def actualFile = injectSegments.yamlDestFile.get().asFile
+        def actualFile = generateYaml.yamlFile.get().asFile
         def expectedFile = flaml.yamlFile.get().asFile
         def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
         def expected = new org.yaml.snakeyaml.Yaml().load(expectedFile.newReader('UTF-8'))
