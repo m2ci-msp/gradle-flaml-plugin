@@ -39,14 +39,12 @@ class ExtractTextGrid extends DefaultTask {
             if (utterance.segments) {
                 utterance.segments.each { segment ->
                     def dur = segment.dur as BigDecimal
-                    end = time + dur
-                    segmentIntervals << new IntervalAnnotation(time, end, segment.lab)
-                    time = end
+                    def segmentEnd = time + dur
+                    segmentIntervals << new IntervalAnnotation(time, segmentEnd, segment.lab)
+                    time = segmentEnd
                 }
-                if (time < end) {
-                    segmentIntervals << new IntervalAnnotation(time, end, '')
-                }
-            } else {
+            }
+            if (time < end) {
                 segmentIntervals << new IntervalAnnotation(time, end, '')
             }
             time = end
