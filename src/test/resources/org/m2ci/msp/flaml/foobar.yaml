@@ -6,7 +6,7 @@
   - lab: f
     dur: 0.1
   - lab: u
-    dur: 0.2
+    dur: 0.15
 - prompt: bar
   start: 0.45
   end: 0.5

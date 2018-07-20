@@ -33,6 +33,7 @@ Insert boundary... 1 0.6
 Insert boundary... 1 0.9
 Duplicate tier... 1 2 segments
 Insert boundary... 2 0.2
+Insert boundary... 2 0.35
 Insert boundary... 2 0.7
 Insert boundary... 2 0.8
 
@@ -41,13 +42,13 @@ Set interval text... 1 4 bar
 Set interval text... 1 6 baz
 Set interval text... 2 2 f
 Set interval text... 2 3 u
-Set interval text... 2 7 b
-Set interval text... 2 8 a
-Set interval text... 2 9 z
+Set interval text... 2 8 b
+Set interval text... 2 9 a
+Set interval text... 2 10 z
 
 Save as text file... 'output_directory$'/foobar.TextGrid
 
-Extract part... 0.1 0.4 no
+Extract part... 0.1 0.35 no
 Extract tier... 2
 Save as Xwaves label file... 'output_directory$'/foo.lab
 select tg
