@@ -29,6 +29,69 @@ flaml {
 }
 ```
 
+FLAML Tasks
+-----------
+
+Applying this plugin to a project adds several tasks, which are configured as follows.
+
+### `extractLabFiles` - Extracts XWaves lab files from YAML
+#### Inputs
+- `yamlFile`, default: `flaml.yamlFile`
+#### Outputs
+- `destDir`, default: `layout.buildDirectory.dir('lab')`
+
+### `extractTextFiles` - Extracts text files from YAML
+#### Inputs
+- `yamlFile`, default: `flaml.yamlFile`
+#### Outputs
+- `destDir`, default: `layout.buildDirectory.dir('text')`
+
+### `extractTextGrid` - Converts YAML to single Praat TextGrid file
+#### Inputs
+- `flacFile`, default: `flaml.flacFile`
+- `yamlFile`, default: `flaml.yamlFile`
+#### Outputs
+- `textGridFile`, default: `layout.buildDirectory.file("${project.name}.TextGrid")`
+
+### `extractWavFiles` - Extracts WAV files from FLAC+YAML
+#### Inputs
+- `flacFile`, default: `flaml.flacFile`
+- `yamlFile`, default: `flaml.yamlFile`
+#### Outputs
+- `destDir`, default: `layout.buildDirectory.dir('wav')`
+
+### `generateFlac` - Generates FLAC from WAV file collection
+#### Inputs
+- `srcFiles`, default: `layout.buildDirectory.dir('wav')`
+#### Outputs
+- `flacFile`, default: `layout.buildDirectory.file("${project.name}.flac")`
+
+### `generateYaml` - Generates YAML from WAV file collection
+#### Inputs
+- `srcFiles`, default: `generateFlac.srcFiles`
+#### Outputs
+- `yamlFile`, default: `layout.buildDirectory.file("${project.name}.yaml")`
+
+### `generateYamlFromTextGrid` - Generates YAML from TextGrid
+#### Inputs
+- `srcFile`, default: `extractTextGrid.textGridFile`
+#### Outputs
+- `yamlFile`, default: `layout.buildDirectory.file("${project.name}.yaml")`
+
+### `injectSegments` - Injects lab files into YAML
+#### Inputs
+- `labDir`, default: `extractLabFiles.destDir`
+- `yamlSrcFile`, default: `flaml.yamlFile`
+#### Outputs
+- `yamlDestFile`, default: `layout.buildDirectory.file("${project.name}.yaml")`
+
+### `injectText` - Injects text files into YAML
+#### Inputs
+- `textDir`, default:, `extractTextFiles.destDir`
+- `yamlSrcFile`, default: `flaml.yamlFile`
+#### Outputs
+- `yamlDestFile`, default: `layout.buildDirectory.file("${project.name}.yaml")`
+
 FLAML (FLAC+YAML) Convention
 ----------------------------
 
