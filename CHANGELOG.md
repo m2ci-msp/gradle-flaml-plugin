@@ -4,6 +4,10 @@ Gradle FLAML Plugin
 [Unreleased]
 ------------
 
+### Added
+
+- support for Java 11
+
 ### Changed
 
 - [all changes since v0.3.0]
