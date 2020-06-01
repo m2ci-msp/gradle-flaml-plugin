@@ -13,13 +13,13 @@ import org.yaml.snakeyaml.Yaml
 class InjectText extends DefaultTask {
 
     @InputDirectory
-    final DirectoryProperty textDir = newInputDirectory()
+    final DirectoryProperty textDir = project.objects.directoryProperty()
 
     @InputFile
-    final RegularFileProperty yamlSrcFile = newInputFile()
+    final RegularFileProperty yamlSrcFile = project.objects.fileProperty()
 
     @OutputFile
-    final RegularFileProperty yamlDestFile = newOutputFile()
+    final RegularFileProperty yamlDestFile = project.objects.fileProperty()
 
     @TaskAction
     void inject() {

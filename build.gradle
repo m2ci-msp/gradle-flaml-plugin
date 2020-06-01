@@ -1,7 +1,7 @@
 plugins {
     id 'java-gradle-plugin'
     id 'groovy'
-    id 'org.m2ci.msp.praat-wrapper' version '0.5.1'
+    id 'org.m2ci.msp.praat-wrapper' version '0.6'
     id 'com.gradle.plugin-publish' version '0.9.10'
 }
 
@@ -19,10 +19,10 @@ repositories {
 }
 
 dependencies {
-    compile group: 'de.undercouch', name: 'gradle-download-task', version: '3.4.3'
-    compile group: 'org.yaml', name: 'snakeyaml', version: '1.21'
-    compile group: 'org.m2ci.msp', name: 'jtgt', version: '0.6.1'
-    testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
+    implementation group: 'de.undercouch', name: 'gradle-download-task', version: '4.0.4'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.26'
+    implementation group: 'org.m2ci.msp', name: 'jtgt', version: '0.6.1'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.1.0'
 }
 
 task generateTestResources(type: GenerateTestResources) {
@@ -58,10 +58,10 @@ pluginBundle {
 class GenerateTestResources extends DefaultTask {
 
     @InputFile
-    RegularFileProperty scriptFile = newInputFile()
+    final RegularFileProperty scriptFile = project.objects.fileProperty()
 
     @OutputDirectory
-    DirectoryProperty destDir = newOutputDirectory()
+    final DirectoryProperty destDir = project.objects.directoryProperty()
 
     @TaskAction
     void generate() {

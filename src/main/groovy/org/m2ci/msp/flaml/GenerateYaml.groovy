@@ -15,7 +15,7 @@ class GenerateYaml extends DefaultTask {
     FileCollection srcFiles = project.files()
 
     @OutputFile
-    final RegularFileProperty yamlFile = newOutputFile()
+    final RegularFileProperty yamlFile = project.objects.fileProperty()
 
     @TaskAction
     void generate() {

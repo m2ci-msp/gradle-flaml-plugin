@@ -6,7 +6,7 @@ Gradle FLAML Plugin
 
 ### Added
 
-- Testing on Java 11 and 13
+- Testing on Java 11, 13, and 14
 
 ### Removed
 
@@ -14,6 +14,8 @@ Gradle FLAML Plugin
 
 ### Changed
 
+- Built with Gradle v6.4.1
+- Upgraded dependencies
 - [all changes since v0.3.0]
 
 [v0.3.0] - 2018-07-23
