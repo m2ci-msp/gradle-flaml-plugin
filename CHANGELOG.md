@@ -6,7 +6,11 @@ Gradle FLAML Plugin
 
 ### Added
 
-- support for Java 11
+- Testing on Java 11 and 13
+
+### Removed
+
+- Testing on Java 10
 
 ### Changed
 
