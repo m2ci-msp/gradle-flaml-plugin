@@ -13,8 +13,8 @@ class FlamlExtension {
 
     FlamlExtension(Project project) {
         this.project = project
-        this.flacFile = project.layout.fileProperty()
-        this.yamlFile = project.layout.fileProperty()
+        this.flacFile = project.objects.fileProperty()
+        this.yamlFile = project.objects.fileProperty()
     }
 
     void setFlacFile(File flacFile) {

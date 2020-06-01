@@ -12,10 +12,10 @@ import org.yaml.snakeyaml.Yaml
 class GenerateYamlFromTextGrid extends DefaultTask {
 
     @InputFiles
-    final RegularFileProperty srcFile = newInputFile()
+    final RegularFileProperty srcFile = project.objects.fileProperty()
 
     @OutputFile
-    final RegularFileProperty yamlFile = newOutputFile()
+    final RegularFileProperty yamlFile = project.objects.fileProperty()
 
     @TaskAction
     void generate() {

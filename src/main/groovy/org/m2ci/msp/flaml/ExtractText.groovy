@@ -11,10 +11,10 @@ import org.yaml.snakeyaml.Yaml
 class ExtractText extends DefaultTask {
 
     @InputFile
-    final RegularFileProperty yamlFile = newInputFile()
+    final RegularFileProperty yamlFile = project.objects.fileProperty()
 
     @OutputDirectory
-    final DirectoryProperty destDir = newOutputDirectory()
+    final DirectoryProperty destDir = project.objects.directoryProperty()
 
     @TaskAction
     def extract() {

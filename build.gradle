@@ -58,10 +58,10 @@ pluginBundle {
 class GenerateTestResources extends DefaultTask {
 
     @InputFile
-    RegularFileProperty scriptFile = newInputFile()
+    RegularFileProperty scriptFile = project.objects.fileProperty()
 
     @OutputDirectory
-    DirectoryProperty destDir = newOutputDirectory()
+    DirectoryProperty destDir = project.objects.directoryProperty()
 
     @TaskAction
     void generate() {
