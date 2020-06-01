@@ -5,10 +5,7 @@ branches:
 language: groovy
 jdk:
   - openjdk8
-  - oraclejdk8
-  - oraclejdk9
   - openjdk10
-  - oraclejdk11
 
 addons:
   apt:
