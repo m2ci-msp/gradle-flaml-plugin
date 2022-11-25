@@ -15,13 +15,13 @@ gradlePlugin {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
     implementation group: 'de.undercouch', name: 'gradle-download-task', version: '4.0.4'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.26'
-    implementation group: 'org.m2ci.msp', name: 'jtgt', version: '0.6.1'
+    implementation group: 'io.github.m2ci-msp', name: 'jtgt', version: '0.7.0'
     testImplementation group: 'org.testng', name: 'testng', version: '7.1.0'
 }
 
