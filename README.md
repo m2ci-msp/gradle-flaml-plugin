@@ -1,7 +1,7 @@
 Gradle FLAML Plugin
 ===================
 
-[![Build Status](https://travis-ci.com/m2ci-msp/gradle-flaml-plugin.svg?branch=master)](https://travis-ci.com/m2ci-msp/gradle-flaml-plugin)
+[![CI](https://github.com/m2ci-msp/gradle-flaml-plugin/actions/workflows/main.yml/badge.svg)](https://github.com/m2ci-msp/gradle-flaml-plugin/actions/workflows/main.yml)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
 A utility plugin for Gradle, allowing lightweight management of speech data in [FLAC] format and corresponding metadata in [YAML] format (see below).
