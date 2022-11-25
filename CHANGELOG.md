@@ -16,6 +16,7 @@ Gradle FLAML Plugin
 
 - Built with Gradle v6.4.1
 - Upgraded dependencies
+- Migrated from Travis CI to GitHub Actions
 - [all changes since v0.3.0]
 
 [v0.3.0] - 2018-07-23
