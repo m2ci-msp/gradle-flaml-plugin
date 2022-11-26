@@ -21,7 +21,7 @@ class FlamlPluginFunctionalTest {
                 stream << this.class.getResourceAsStream(resourceName)
             }
         }
-        gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
+        gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir).forwardOutput()
     }
 
     @BeforeGroups(groups = 'core')
@@ -79,7 +79,6 @@ class FlamlPluginFunctionalTest {
 
     void runGradleTask(String taskName) {
         def result = gradle.withArguments('--warning-mode', 'all', taskName).build()
-        println result.output
         assert result.task(":$taskName").outcome in [TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE]
     }
 

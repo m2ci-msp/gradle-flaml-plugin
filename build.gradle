@@ -39,6 +39,13 @@ processTestResources {
 
 test {
     useTestNG()
+    testLogging {
+        events 'passed', 'failed', 'skipped'
+        exceptionFormat = 'full'
+        info {
+            showStandardStreams = true
+        }
+    }
 }
 
 pluginBundle {
