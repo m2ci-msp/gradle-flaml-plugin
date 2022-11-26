@@ -10,51 +10,38 @@ class FlamlPluginFunctionalTest {
 
     GradleRunner gradle
 
-    @BeforeGroups(groups = 'core')
-    void setupCore() {
+    void setupGradleAndProjectDir(String buildScriptResourceName, String... resourceNames) {
         def projectDir = File.createTempDir()
         new File(projectDir, 'settings.gradle').createNewFile()
-        new File(projectDir, 'build.gradle').withWriter {
-            it << this.class.getResourceAsStream('build-core.gradle')
+        new File(projectDir, 'build.gradle').withWriter { writer ->
+            writer << this.class.getResourceAsStream(buildScriptResourceName)
         }
-        gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
-        ['foobar.flac', 'foobar.yaml'].each { resourceName ->
+        resourceNames.each { resourceName ->
             new File(projectDir, resourceName).withOutputStream { stream ->
-                stream << this.getClass().getResourceAsStream(resourceName)
+                stream << this.class.getResourceAsStream(resourceName)
             }
         }
+        gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
+    }
+
+    @BeforeGroups(groups = 'core')
+    void setupCore() {
+        setupGradleAndProjectDir('build-core.gradle',
+                'foobar.flac', 'foobar.yaml')
     }
 
     @BeforeGroups(groups = 'extraction')
     void setupExtraction() {
-        def projectDir = File.createTempDir()
-        new File(projectDir, 'settings.gradle').createNewFile()
-        new File(projectDir, 'build.gradle').withWriter {
-            it << this.class.getResourceAsStream('build-extraction.gradle')
-        }
-        gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
-        ['foobar.flac', 'foobar.yaml', 'foobar.TextGrid',
-         'foo.wav', 'bar.wav', 'baz.wav', 'foo.lab', 'baz.lab', 'foo.txt', 'baz.txt'].each { resourceName ->
-            new File(projectDir, resourceName).withOutputStream { stream ->
-                stream << this.getClass().getResourceAsStream(resourceName)
-            }
-        }
+        setupGradleAndProjectDir('build-extraction.gradle',
+                'foobar.flac', 'foobar.yaml',
+                'foobar.TextGrid', 'foo.wav', 'bar.wav', 'baz.wav', 'foo.lab', 'baz.lab', 'foo.txt', 'baz.txt')
     }
 
     @BeforeGroups(groups = 'generation')
     void setupGeneration() {
-        def projectDir = File.createTempDir()
-        new File(projectDir, 'settings.gradle').createNewFile()
-        new File(projectDir, 'build.gradle').withWriter {
-            it << this.class.getResourceAsStream('build-generation.gradle')
-        }
-        gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
-        ['foobar.flac', 'foobar.yaml', 'foo_padded.wav', 'baz_padded.wav',
-         'bar.wav'].each { resourceName ->
-            new File(projectDir, resourceName).withOutputStream { stream ->
-                stream << this.getClass().getResourceAsStream(resourceName)
-            }
-        }
+        setupGradleAndProjectDir('build-generation.gradle',
+                'foobar.flac', 'foobar.yaml',
+                'foo_padded.wav', 'baz_padded.wav', 'bar.wav')
     }
 
     @DataProvider
@@ -90,30 +77,24 @@ class FlamlPluginFunctionalTest {
         ]
     }
 
-    @Test(groups = 'core', dataProvider = 'coreTasks')
-    void testCoreTasks(String taskName) {
-        def result = gradle.withArguments(
-                '--warning-mode', 'all',
-                taskName).build()
+    void runGradleTask(String taskName) {
+        def result = gradle.withArguments('--warning-mode', 'all', taskName).build()
         println result.output
         assert result.task(":$taskName").outcome in [TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE]
+    }
+
+    @Test(groups = 'core', dataProvider = 'coreTasks')
+    void testCoreTasks(String taskName) {
+        runGradleTask(taskName)
     }
 
     @Test(groups = 'extraction', dataProvider = 'extractionTasks')
     void testExtractionTasks(String taskName) {
-        def result = gradle.withArguments(
-                '--warning-mode', 'all',
-                taskName).build()
-        println result.output
-        assert result.task(":$taskName").outcome in [TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE]
+        runGradleTask(taskName)
     }
 
     @Test(groups = 'generation', dataProvider = 'generationTasks')
     void testGenerationTasks(String taskName) {
-        def result = gradle.withArguments(
-                '--warning-mode', 'all',
-                taskName).build()
-        println result.output
-        assert result.task(":$taskName").outcome in [TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE]
+        runGradleTask(taskName)
     }
 }
