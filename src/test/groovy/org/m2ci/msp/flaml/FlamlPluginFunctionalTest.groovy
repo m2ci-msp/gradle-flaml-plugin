@@ -18,8 +18,7 @@ class FlamlPluginFunctionalTest {
             it << this.class.getResourceAsStream('build-core.gradle')
         }
         gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
-        ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid', 'foo_padded.wav', 'baz_padded.wav',
-         'foo.wav', 'bar.wav', 'baz.wav', 'foo.lab', 'baz.lab', 'foo.txt', 'baz.txt'].each { resourceName ->
+        ['foobar.flac', 'foobar.yaml'].each { resourceName ->
             new File(projectDir, resourceName).withOutputStream { stream ->
                 stream << this.getClass().getResourceAsStream(resourceName)
             }
@@ -34,7 +33,7 @@ class FlamlPluginFunctionalTest {
             it << this.class.getResourceAsStream('build-extraction.gradle')
         }
         gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
-        ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid', 'foo_padded.wav', 'baz_padded.wav',
+        ['foobar.flac', 'foobar.yaml', 'foobar.TextGrid',
          'foo.wav', 'bar.wav', 'baz.wav', 'foo.lab', 'baz.lab', 'foo.txt', 'baz.txt'].each { resourceName ->
             new File(projectDir, resourceName).withOutputStream { stream ->
                 stream << this.getClass().getResourceAsStream(resourceName)
@@ -50,8 +49,8 @@ class FlamlPluginFunctionalTest {
             it << this.class.getResourceAsStream('build-generation.gradle')
         }
         gradle = GradleRunner.create().withPluginClasspath().withProjectDir(projectDir)
-        ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid', 'foo_padded.wav', 'baz_padded.wav',
-         'foo.wav', 'bar.wav', 'baz.wav', 'foo.lab', 'baz.lab', 'foo.txt', 'baz.txt'].each { resourceName ->
+        ['foobar.flac', 'foobar.yaml', 'foo_padded.wav', 'baz_padded.wav',
+         'bar.wav'].each { resourceName ->
             new File(projectDir, resourceName).withOutputStream { stream ->
                 stream << this.getClass().getResourceAsStream(resourceName)
             }
@@ -66,8 +65,7 @@ class FlamlPluginFunctionalTest {
                 ['tasks'],
                 ['hasTaskDescriptions'],
                 ['hasExtension'],
-                ['hasFlamlResources'],
-                ['hasTestResources'],
+                ['hasFlamlResources']
         ]
     }
 
