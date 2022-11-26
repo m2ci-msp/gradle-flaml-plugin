@@ -40,12 +40,12 @@ class ExtractTextGrid extends DefaultTask {
                 utterance.segments.each { segment ->
                     def dur = segment.dur as BigDecimal
                     def segmentEnd = time + dur
-                    segmentIntervals << new IntervalAnnotation(time, segmentEnd, segment.lab)
+                    segmentIntervals << new IntervalAnnotation(time, segmentEnd as double, segment.lab)
                     time = segmentEnd
                 }
             }
             if (time < end) {
-                segmentIntervals << new IntervalAnnotation(time, end, '')
+                segmentIntervals << new IntervalAnnotation(time as double, end, '')
             }
             time = end
         }
@@ -70,7 +70,7 @@ class ExtractTextGrid extends DefaultTask {
         // create TextGrid
         def promptTier = new IntervalTier('prompts', promptIntervals.first().start, promptIntervals.last().end, promptIntervals)
         def segmentTier = new IntervalTier('segments', segmentIntervals.first().start, segmentIntervals.last().end, segmentIntervals)
-        def textGrid = new TextGrid(null, promptIntervals.first().start, promptIntervals.last().end, [promptTier, segmentTier])
+        def textGrid = new TextGrid( promptIntervals.first().start, promptIntervals.last().end, [promptTier, segmentTier])
         new TextGridSerializer().save(textGrid, textGridFile.get().asFile)
     }
 }

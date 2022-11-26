@@ -25,7 +25,7 @@ class GenerateYamlFromTextGrid extends DefaultTask {
         def segmentsTier = textGrid.tiers[1]
         promptsTier.annotations.findAll { it.text.trim() }.each { prompt ->
             def segments = []
-            segmentsTier?.annotations.findAll { it.start >= prompt.start && it.end <= prompt.end }.each { segment ->
+            segmentsTier?.annotations?.findAll { it.start >= prompt.start && it.end <= prompt.end }?.each { segment ->
                 if (segment.text) {
                     def dur = new BigDecimal(segment.end) - new BigDecimal(segment.start)
                     segments << [

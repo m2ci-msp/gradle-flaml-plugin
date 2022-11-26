@@ -6,6 +6,7 @@ import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.m2ci.msp.jtgt.Annotation
 import org.m2ci.msp.jtgt.TextGrid
 import org.m2ci.msp.jtgt.annotation.IntervalAnnotation
 import org.m2ci.msp.jtgt.io.XWaveLabelSerializer
@@ -32,8 +33,8 @@ class ExtractLab extends DefaultTask {
                     new IntervalAnnotation(start, end, segment.lab)
                 }
                 def tierName = 'phones'
-                def tier = new IntervalTier(tierName, intervals.first().start, intervals.last().end, intervals)
-                def textGrid = new TextGrid(null, intervals.first().start, intervals.last().end, [tier])
+                def tier = new IntervalTier(tierName, intervals.first().start, intervals.last().end, intervals as ArrayList<Annotation>)
+                def textGrid = new TextGrid(intervals.first().start, intervals.last().end, [tier])
                 destDir.file("${utterance.prompt}.lab").get().asFile.text = new XWaveLabelSerializer().toString(textGrid, tierName)
             }
         }

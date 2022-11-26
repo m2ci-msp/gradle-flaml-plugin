@@ -27,8 +27,8 @@ dependencies {
 
 task generateTestResources(type: GenerateTestResources) {
     dependsOn praat
-    scriptFile = file('src/test/praat/generateTestResources.praat')
-    destDir = layout.buildDirectory.dir('generatedTestResources')
+    scriptFile.set file('src/test/praat/generateTestResources.praat')
+    destDir.set layout.buildDirectory.dir('generatedTestResources')
 }
 
 processTestResources {
