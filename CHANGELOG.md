@@ -6,17 +6,18 @@ Gradle FLAML Plugin
 
 ### Added
 
-- Testing on Java 11, 13, and 14
+- Testing on Java 11 and 17
 
 ### Removed
 
-- Testing on Java 10
+- Testing on Java 10, 13, and 14
 
 ### Changed
 
-- Built with Gradle v6.4.1
+- Build with Gradle v7.5.1
 - Upgraded dependencies
 - Migrated from Travis CI to GitHub Actions
+- Refactored functional tests
 - [all changes since v0.3.0]
 
 [v0.3.0] - 2018-07-23

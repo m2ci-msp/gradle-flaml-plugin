@@ -33,12 +33,3 @@ task hasFlamlResources {
         assert flaml.flacFile.get().asFile.canRead()
     }
 }
-
-task hasTestResources {
-    doLast {
-        ['foobar.flac', 'foobar.yaml', 'foobar.wav', 'foobar.TextGrid', 'foo_padded.wav', 'baz_padded.wav',
-         'foo.wav', 'bar.wav', 'baz.wav', 'foo.lab', 'baz.lab', 'foo.txt', 'baz.txt'].each { testResource ->
-            assert file(testResource).canRead()
-        }
-    }
-}

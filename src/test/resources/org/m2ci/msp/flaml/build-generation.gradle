@@ -27,7 +27,6 @@ task testGenerateYaml {
     dependsOn generateYaml
     doLast {
         def actualFile = generateYaml.yamlFile.get().asFile
-        def expectedFile = file('foobar.yaml')
         def actual = new org.yaml.snakeyaml.Yaml().load(actualFile.newReader('UTF-8'))
         def expected = [
                 [prompt: 'foo_padded',

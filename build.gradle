@@ -15,20 +15,20 @@ gradlePlugin {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    implementation group: 'de.undercouch', name: 'gradle-download-task', version: '4.0.4'
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.26'
-    implementation group: 'org.m2ci.msp', name: 'jtgt', version: '0.6.1'
-    testImplementation group: 'org.testng', name: 'testng', version: '7.1.0'
+    implementation group: 'de.undercouch', name: 'gradle-download-task', version: '5.3.0'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.33'
+    implementation group: 'io.github.m2ci-msp', name: 'jtgt', version: '0.7.0'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.5'
 }
 
 task generateTestResources(type: GenerateTestResources) {
     dependsOn praat
-    scriptFile = file('src/test/praat/generateTestResources.praat')
-    destDir = layout.buildDirectory.dir('generatedTestResources')
+    scriptFile.set file('src/test/praat/generateTestResources.praat')
+    destDir.set layout.buildDirectory.dir('generatedTestResources')
 }
 
 processTestResources {
@@ -39,6 +39,14 @@ processTestResources {
 
 test {
     useTestNG()
+    systemProperty 'java.io.tmpdir', temporaryDir
+    testLogging {
+        events 'passed', 'failed', 'skipped'
+        exceptionFormat = 'full'
+        info {
+            showStandardStreams = true
+        }
+    }
 }
 
 pluginBundle {
