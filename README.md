@@ -131,6 +131,6 @@ Below is an example:
 ```
 
 [FLAC]: https://xiph.org/flac/
-[YAML]: http://yaml.org/
+[YAML]: https://yaml.org/
 [Java]: https://java.com/download/
-[SoX]: http://sox.sourceforge.net/
+[SoX]: https://sox.sourceforge.net/
