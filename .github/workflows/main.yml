@@ -23,7 +23,8 @@ jobs:
           distribution: zulu
           java-version: ${{ matrix.java }}
 
-      - env:
+      - if: runner.os == 'Linux'
+        env:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get -qq update
