@@ -7,6 +7,7 @@ Gradle FLAML Plugin
 ### Added
 
 - Testing on Java 11 and 17
+- Testing on macOS
 
 ### Removed
 
