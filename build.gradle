@@ -5,6 +5,20 @@ plugins {
     id 'com.gradle.plugin-publish' version '0.9.10'
 }
 
+pluginBundle {
+    website = scmUrl
+    vcsUrl = scmUrl
+    description = project.description
+    tags = ['speech data', 'phonetics']
+
+    plugins {
+        flamlPlugin {
+            id = pluginId
+            displayName = project.description
+        }
+    }
+}
+
 gradlePlugin {
     plugins {
         flamlPlugin {
@@ -50,20 +64,6 @@ test {
         exceptionFormat = 'full'
         info {
             showStandardStreams = true
-        }
-    }
-}
-
-pluginBundle {
-    website = scmUrl
-    vcsUrl = scmUrl
-    description = project.description
-    tags = ['speech data', 'phonetics']
-
-    plugins {
-        flamlPlugin {
-            id = pluginId
-            displayName = project.description
         }
     }
 }
