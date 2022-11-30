@@ -5,6 +5,10 @@ plugins {
     id 'com.gradle.plugin-publish' version '0.9.10'
 }
 
+group 'org.m2ci.msp'
+version '0.4.0-SNAPSHOT'
+description 'Utility plugin to manage speech data following FLAC+YAML convention'
+
 pluginBundle {
     website = scmUrl
     vcsUrl = scmUrl
