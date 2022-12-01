@@ -2,6 +2,7 @@ plugins {
     id 'com.gradle.plugin-publish' version '1.1.0'
     id 'groovy'
     id 'org.m2ci.msp.praat-wrapper' version '0.6'
+    id 'signing'
 }
 
 group 'io.github.m2ci-msp'
@@ -103,4 +104,8 @@ publishing {
             credentials(PasswordCredentials)
         }
     }
+}
+
+tasks.withType(Sign) {
+    onlyIf { isReleaseVersion }
 }
