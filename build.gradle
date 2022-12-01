@@ -1,8 +1,7 @@
 plugins {
-    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '1.1.0'
     id 'groovy'
     id 'org.m2ci.msp.praat-wrapper' version '0.6'
-    id 'com.gradle.plugin-publish' version '0.21.0'
 }
 
 group 'io.github.m2ci-msp'
@@ -14,13 +13,6 @@ pluginBundle {
     vcsUrl = scmUrl
     description = project.description
     tags = ['speech data', 'phonetics']
-
-    plugins {
-        flamlPlugin {
-            id = pluginId
-            displayName = project.description
-        }
-    }
 }
 
 gradlePlugin {
@@ -28,6 +20,7 @@ gradlePlugin {
         flamlPlugin {
             id = pluginId
             implementationClass = 'org.m2ci.msp.flaml.FlamlPlugin'
+            displayName = project.description
         }
     }
 }
