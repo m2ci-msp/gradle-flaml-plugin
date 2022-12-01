@@ -1,15 +1,29 @@
 plugins {
-    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '1.1.0'
     id 'groovy'
     id 'org.m2ci.msp.praat-wrapper' version '0.6'
-    id 'com.gradle.plugin-publish' version '0.9.10'
+    id 'signing'
+}
+
+group 'io.github.m2ci-msp'
+version '0.4.0-SNAPSHOT'
+description 'Utility plugin to manage speech data following FLAC+YAML convention'
+ext.url = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
+ext.isReleaseVersion = !version.endsWith('-SNAPSHOT')
+
+pluginBundle {
+    website = project.url
+    vcsUrl = project.url
+    description = project.description
+    tags = ['speech data', 'phonetics']
 }
 
 gradlePlugin {
     plugins {
         flamlPlugin {
-            id = pluginId
+            id = 'org.m2ci.msp.flaml'
             implementationClass = 'org.m2ci.msp.flaml.FlamlPlugin'
+            displayName = project.description
         }
     }
 }
@@ -25,10 +39,15 @@ dependencies {
     testImplementation group: 'org.testng', name: 'testng', version: '7.5'
 }
 
-task generateTestResources(type: GenerateTestResources) {
+task generateTestResources(type: Exec) {
     dependsOn praat
+    def scriptFile = objects.fileProperty()
+    def destDir = objects.directoryProperty()
     scriptFile.set file('src/test/praat/generateTestResources.praat')
     destDir.set layout.buildDirectory.dir('generatedTestResources')
+    inputs.file scriptFile
+    outputs.dir destDir
+    commandLine praat.binary, '--run', scriptFile.get().asFile, destDir.get().asFile
 }
 
 processTestResources {
@@ -49,32 +68,44 @@ test {
     }
 }
 
-pluginBundle {
-    website = scmUrl
-    vcsUrl = scmUrl
-    description = project.description
-    tags = ['speech data', 'phonetics']
-
-    plugins {
-        flamlPlugin {
-            id = pluginId
-            displayName = project.description
+publishing {
+    publications {
+        withType(MavenPublication) {
+            pom {
+                name = 'FLAML Plugin'
+                description = project.description
+                url = project.url
+                inceptionYear = '2017'
+                licenses {
+                    license {
+                        name = 'GNU Lesser General Public License v3.0'
+                        url = 'https://www.gnu.org/licenses/lgpl-3.0-standalone.html'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'Ingmar Steiner'
+                        url = 'https://github.com/psibre'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/m2ci-msp/gradle-flaml-plugin.git'
+                    developerConnection = 'scm:git:git@github.com/m2ci-msp/gradle-flaml-plugin.git'
+                    url = project.url
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name 'OSSRH'
+            url isReleaseVersion ? 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+                    : 'https://oss.sonatype.org/content/repositories/snapshots'
+            credentials(PasswordCredentials)
         }
     }
 }
 
-class GenerateTestResources extends DefaultTask {
-
-    @InputFile
-    final RegularFileProperty scriptFile = project.objects.fileProperty()
-
-    @OutputDirectory
-    final DirectoryProperty destDir = project.objects.directoryProperty()
-
-    @TaskAction
-    void generate() {
-        project.exec {
-            commandLine project.praat.binary, '--run', scriptFile.get().asFile, destDir.get().asFile
-        }
-    }
+tasks.withType(Sign) {
+    onlyIf { isReleaseVersion }
 }
