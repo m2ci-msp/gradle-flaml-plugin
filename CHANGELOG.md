@@ -8,6 +8,7 @@ Gradle FLAML Plugin
 
 - Testing on Java 11 and 17
 - Testing on macOS
+- Publishing to Maven Central
 
 ### Removed
 
@@ -16,9 +17,10 @@ Gradle FLAML Plugin
 ### Changed
 
 - Build with Gradle v7.5.1
-- Upgraded dependencies
+- Upgraded dependencies, plugins
 - Migrated from Travis CI to GitHub Actions
 - Refactored functional tests
+- Changed group ID to `io.github.m2ci-msp`
 - [all changes since v0.3.0]
 
 [v0.3.0] - 2018-07-23
