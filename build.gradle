@@ -7,10 +7,11 @@ plugins {
 group 'io.github.m2ci-msp'
 version '0.4.0-SNAPSHOT'
 description 'Utility plugin to manage speech data following FLAC+YAML convention'
+ext.url = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
 
 pluginBundle {
-    website = scmUrl
-    vcsUrl = scmUrl
+    website = project.url
+    vcsUrl = project.url
     description = project.description
     tags = ['speech data', 'phonetics']
 }
@@ -18,7 +19,7 @@ pluginBundle {
 gradlePlugin {
     plugins {
         flamlPlugin {
-            id = pluginId
+            id = 'org.m2ci.msp.flaml'
             implementationClass = 'org.m2ci.msp.flaml.FlamlPlugin'
             displayName = project.description
         }
