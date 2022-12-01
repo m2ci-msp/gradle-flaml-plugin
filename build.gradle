@@ -8,6 +8,7 @@ group 'io.github.m2ci-msp'
 version '0.4.0-SNAPSHOT'
 description 'Utility plugin to manage speech data following FLAC+YAML convention'
 ext.url = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
+ext.isReleaseVersion = !version.endsWith('-SNAPSHOT')
 
 pluginBundle {
     website = project.url
@@ -62,6 +63,44 @@ test {
         exceptionFormat = 'full'
         info {
             showStandardStreams = true
+        }
+    }
+}
+
+publishing {
+    publications {
+        withType(MavenPublication) {
+            pom {
+                name = 'FLAML Plugin'
+                description = project.description
+                url = project.url
+                inceptionYear = '2017'
+                licenses {
+                    license {
+                        name = 'GNU Lesser General Public License v3.0'
+                        url = 'https://www.gnu.org/licenses/lgpl-3.0-standalone.html'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'Ingmar Steiner'
+                        url = 'https://github.com/psibre'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/m2ci-msp/gradle-flaml-plugin.git'
+                    developerConnection = 'scm:git:git@github.com/m2ci-msp/gradle-flaml-plugin.git'
+                    url = project.url
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name 'OSSRH'
+            url isReleaseVersion ? 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+                    : 'https://oss.sonatype.org/content/repositories/snapshots'
+            credentials(PasswordCredentials)
         }
     }
 }
