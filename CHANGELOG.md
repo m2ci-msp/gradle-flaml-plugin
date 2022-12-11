@@ -21,6 +21,7 @@ Gradle FLAML Plugin
 - Migrated from Travis CI to GitHub Actions
 - Refactored functional tests
 - Changed group ID to `io.github.m2ci-msp`
+- Upgraded Praat plugin to v0.7.0
 - [all changes since v0.3.0]
 
 [v0.3.0] - 2018-07-23
