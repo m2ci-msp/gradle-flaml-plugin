@@ -3,6 +3,7 @@ package org.m2ci.msp.flaml
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
@@ -13,6 +14,9 @@ class GenerateYaml extends DefaultTask {
 
     @InputFiles
     FileCollection srcFiles = project.files()
+
+    @InputFile
+    final RegularFileProperty commentsFile = project.objects.fileProperty()
 
     @OutputFile
     final RegularFileProperty yamlFile = project.objects.fileProperty()
@@ -45,9 +49,17 @@ class GenerateYaml extends DefaultTask {
             ]
             start = end
         }
-        def options = new DumperOptions()
-        options.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
-        def yaml = new Yaml(options)
-        yaml.dump(utterances, yamlFile.get().asFile.newWriter('UTF-8'))
+        yamlFile.get().asFile.withWriter('UTF-8') { writer ->
+            def comments = new Properties()
+            comments.load(commentsFile.get().asFile.newInputStream())
+            comments.toSorted { it.key }.each { key, value ->
+                writer.writeLine("# $key: $value")
+            }
+
+            def options = new DumperOptions()
+            options.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
+            def yaml = new Yaml(options)
+            yaml.dump(utterances, writer)
+        }
     }
 }
