@@ -9,6 +9,7 @@ Gradle FLAML Plugin
 - Testing on Java 11 and 17
 - Testing on macOS
 - Publishing to Maven Central
+- Logic to add comments to FLAC and YAML files via `generateComments.properties`
 
 ### Removed
 

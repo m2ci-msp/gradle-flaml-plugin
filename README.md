@@ -60,15 +60,23 @@ Applying this plugin to a project adds several tasks, which are configured as fo
 #### Outputs
 - `destDir`, default: `layout.buildDirectory.dir('wav')`
 
+### `generateComments` - Generates comments as Properties file
+#### Inputs
+- `properties`, default: (empty)
+#### Outputs
+- `destFile`, default: `layout.buildDirectory.file('comments.properties')`
+
 ### `generateFlac` - Generates FLAC from WAV file collection
 #### Inputs
 - `srcFiles`, default: `layout.buildDirectory.dir('wav')`
+- `commentsFile`, default: `generateComments.destFile`
 #### Outputs
 - `flacFile`, default: `layout.buildDirectory.file("${project.name}.flac")`
 
 ### `generateYaml` - Generates YAML from WAV file collection
 #### Inputs
 - `srcFiles`, default: `generateFlac.srcFiles`
+- `commentsFile`, default: `generateComments.destFile`
 #### Outputs
 - `yamlFile`, default: `layout.buildDirectory.file("${project.name}.yaml")`
 

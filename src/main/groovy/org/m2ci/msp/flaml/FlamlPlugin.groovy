@@ -45,10 +45,17 @@ class FlamlPlugin implements Plugin<Project> {
             destDir.set project.layout.buildDirectory.dir('text')
         }
 
+        def generateCommentsTask = project.tasks.register('generateComments', WriteComments) {
+            group = 'FLAML'
+            description = 'Generates comments as properties file'
+            destFile.set project.layout.buildDirectory.file('comments.properties')
+        }
+
         project.tasks.register 'generateFlac', GenerateFlac, {
             group = 'FLAML'
             description = 'Generates FLAC from WAV file collection'
             srcFiles = project.layout.buildDirectory.dir('wav').get().asFileTree
+            commentsFile.set generateCommentsTask.get().destFile
             flacFile.set project.layout.buildDirectory.file("${project.name}.flac")
         }
 
@@ -56,6 +63,7 @@ class FlamlPlugin implements Plugin<Project> {
             group = 'FLAML'
             description = 'Generates YAML from WAV file collection'
             srcFiles = project.tasks.named('generateFlac').get().srcFiles
+            commentsFile.set generateCommentsTask.get().destFile
             yamlFile.set project.layout.buildDirectory.file("${project.name}.yaml")
         }
 

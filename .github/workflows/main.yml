@@ -15,6 +15,12 @@ jobs:
           - ubuntu-latest
           - macos-latest
         java: [ 8, 11, 17 ]
+        exclude:
+          - os: macos-latest
+            java: 8
+          - os: macos-latest
+            java: 17
+      fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
