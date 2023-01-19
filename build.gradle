@@ -2,11 +2,10 @@ plugins {
     id 'com.gradle.plugin-publish' version '1.1.0'
     id 'groovy'
     id 'io.github.m2ci-msp.praat-wrapper' version '0.7.0'
-    id 'signing'
 }
 
-group 'io.github.m2ci-msp'
-version '0.4.0-SNAPSHOT'
+group 'org.m2ci.msp'
+version '0.5.0-SNAPSHOT'
 description 'Utility plugin to manage speech data following FLAC+YAML convention'
 ext.url = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
 ext.isReleaseVersion = !version.endsWith('-SNAPSHOT')
@@ -96,16 +95,4 @@ publishing {
             }
         }
     }
-    repositories {
-        maven {
-            name 'OSSRH'
-            url isReleaseVersion ? 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-                    : 'https://oss.sonatype.org/content/repositories/snapshots'
-            credentials(PasswordCredentials)
-        }
-    }
-}
-
-tasks.withType(Sign) {
-    onlyIf { isReleaseVersion }
 }
