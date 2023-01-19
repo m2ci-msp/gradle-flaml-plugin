@@ -5,7 +5,7 @@ plugins {
     id 'signing'
 }
 
-group 'io.github.m2ci-msp'
+group 'org.m2ci.msp'
 version '0.4.0-SNAPSHOT'
 description 'Utility plugin to manage speech data following FLAC+YAML convention'
 ext.url = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
