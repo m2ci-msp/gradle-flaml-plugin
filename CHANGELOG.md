@@ -1,14 +1,13 @@
 Gradle FLAML Plugin
 ===================
 
-[Unreleased]
-------------
+[v0.4.0] - 2023-01-19
+---------------------
 
 ### Added
 
 - Testing on Java 11 and 17
 - Testing on macOS
-- Publishing to Maven Central
 - Logic to add comments to FLAC and YAML files via `generateComments.properties`
 
 ### Removed
@@ -21,7 +20,6 @@ Gradle FLAML Plugin
 - Upgraded dependencies, plugins
 - Migrated from Travis CI to GitHub Actions
 - Refactored functional tests
-- Changed group ID to `io.github.m2ci-msp`
 - Upgraded Praat plugin to v0.7.0
 - [all changes since v0.3.0]
 
@@ -64,8 +62,8 @@ Gradle FLAML Plugin
 
 Initial release
 
-[Unreleased]: https://github.com/m2ci-msp/gradle-flaml-plugin/tree/master
-[all changes since v0.3.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/compare/v0.3.0...HEAD
+[v0.4.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/releases/tag/v0.4.0
+[all changes since v0.3.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/releases/tag/v0.3.0
 [all changes since v0.2.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/m2ci-msp/gradle-flaml-plugin/releases/tag/v0.2.0
