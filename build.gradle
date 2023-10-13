@@ -7,8 +7,10 @@ plugins {
 group 'org.m2ci.msp'
 version '0.5.0-SNAPSHOT'
 description 'Utility plugin to manage speech data following FLAC+YAML convention'
-ext.url = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
-ext.isReleaseVersion = !version.endsWith('-SNAPSHOT')
+ext {
+    url = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
+    isReleaseVersion = !version.endsWith('-SNAPSHOT')
+}
 
 pluginBundle {
     website = project.url
@@ -38,8 +40,8 @@ dependencies {
     testImplementation group: 'org.testng', name: 'testng', version: '7.8.0'
 }
 
-task generateTestResources(type: Exec) {
-    dependsOn praat
+tasks.register('generateTestResources', Exec) {
+    dependsOn tasks.named('praat')
     def scriptFile = objects.fileProperty()
     def destDir = objects.directoryProperty()
     scriptFile.set file('src/test/praat/generateTestResources.praat')
@@ -69,7 +71,7 @@ test {
 
 publishing {
     publications {
-        withType(MavenPublication) {
+        withType(MavenPublication).configureEach {
             pom {
                 name = 'FLAML Plugin'
                 description = project.description
