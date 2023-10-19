@@ -12,19 +12,16 @@ ext {
     isReleaseVersion = !version.endsWith('-SNAPSHOT')
 }
 
-pluginBundle {
+gradlePlugin {
     website = project.url
     vcsUrl = project.url
-    description = project.description
-    tags = ['speech data', 'phonetics']
-}
-
-gradlePlugin {
     plugins {
         flamlPlugin {
             id = 'org.m2ci.msp.flaml'
             implementationClass = 'org.m2ci.msp.flaml.FlamlPlugin'
             displayName = project.description
+            description = project.description
+            tags.set(['speech data', 'phonetics'])
         }
     }
 }
