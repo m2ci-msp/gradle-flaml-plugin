@@ -14,10 +14,8 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
-        java: [ 8, 11, 17 ]
+        java: [ 11, 17 ]
         exclude:
-          - os: macos-latest
-            java: 8
           - os: macos-latest
             java: 17
       fail-fast: false
