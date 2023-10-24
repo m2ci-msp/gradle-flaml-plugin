@@ -4,8 +4,16 @@ Gradle FLAML Plugin
 [Unreleased]
 ------------
 
+### Removed
+
+- Testing on Java 8
+
 ### Changed
 
+- Build with Gradle v8.4
+- Upgraded GitHub actions
+- Upgraded dependencies
+- Upgraded plugins
 - [all changes since v0.4.0]
 
 [v0.4.0] - 2023-01-19
