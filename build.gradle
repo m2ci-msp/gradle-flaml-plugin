@@ -1,5 +1,5 @@
 plugins {
-    id 'com.gradle.plugin-publish' version '1.1.0'
+    id 'com.gradle.plugin-publish' version '1.2.1'
     id 'groovy'
     id 'io.github.m2ci-msp.praat-wrapper' version '0.7.0'
 }
@@ -7,22 +7,21 @@ plugins {
 group 'org.m2ci.msp'
 version '0.5.0-SNAPSHOT'
 description 'Utility plugin to manage speech data following FLAC+YAML convention'
-ext.url = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
-ext.isReleaseVersion = !version.endsWith('-SNAPSHOT')
-
-pluginBundle {
-    website = project.url
-    vcsUrl = project.url
-    description = project.description
-    tags = ['speech data', 'phonetics']
+ext {
+    url = 'https://github.com/m2ci-msp/gradle-flaml-plugin'
+    isReleaseVersion = !version.endsWith('-SNAPSHOT')
 }
 
 gradlePlugin {
+    website = project.url
+    vcsUrl = project.url
     plugins {
         flamlPlugin {
             id = 'org.m2ci.msp.flaml'
             implementationClass = 'org.m2ci.msp.flaml.FlamlPlugin'
             displayName = project.description
+            description = project.description
+            tags.set(['speech data', 'phonetics'])
         }
     }
 }
@@ -32,14 +31,14 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'de.undercouch', name: 'gradle-download-task', version: '5.3.0'
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.33'
+    implementation group: 'de.undercouch', name: 'gradle-download-task', version: '5.5.0'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '2.2'
     implementation group: 'io.github.m2ci-msp', name: 'jtgt', version: '0.7.0'
-    testImplementation group: 'org.testng', name: 'testng', version: '7.5'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.8.0'
 }
 
-task generateTestResources(type: Exec) {
-    dependsOn praat
+tasks.register('generateTestResources', Exec) {
+    dependsOn tasks.named('praat')
     def scriptFile = objects.fileProperty()
     def destDir = objects.directoryProperty()
     scriptFile.set file('src/test/praat/generateTestResources.praat')
@@ -69,7 +68,7 @@ test {
 
 publishing {
     publications {
-        withType(MavenPublication) {
+        withType(MavenPublication).configureEach {
             pom {
                 name = 'FLAML Plugin'
                 description = project.description
